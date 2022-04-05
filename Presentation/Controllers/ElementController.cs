@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.ElementLists.Queries.GetElements;
+using Microsoft.AspNetCore.Mvc;
 using StockManagment.Application.Elements.Commands.CreateElement;
 using StockManagment.Application.Elements.Commands.DeleteElement;
 using StockManagment.Application.Elements.Commands.UpdateElement;
@@ -11,6 +12,13 @@ namespace StockManagment.Presentation.Controllers
     {
         [HttpGet]
         public async Task<ActionResult<ElementDto>> Get([FromQuery] GetElementQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<ElementList>> Get([FromQuery] GetElementsQuery query)
         {
             return await Mediator.Send(query);
         }

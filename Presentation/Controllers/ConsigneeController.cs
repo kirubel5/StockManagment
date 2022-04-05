@@ -12,8 +12,7 @@ namespace StockManagment.Presentation.Controllers
     public class ConsigneeController : ApiControllerBase
     {
         [HttpGet]
-        [Route("Get")]
-        public async Task<ActionResult<Application.Consignees.Queries.GetConsignee.ConsigneeDto>> Get([FromQuery] GetConsigneeQuery query)
+        public async Task<ActionResult<ConsigneeDto>> Get([FromQuery] GetConsigneeQuery query)
         {
             return await Mediator.Send(query);
         }
