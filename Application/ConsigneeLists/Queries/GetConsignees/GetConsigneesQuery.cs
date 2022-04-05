@@ -36,7 +36,7 @@ namespace Application.ConsigneeLists.Queries.GetConsignees
                 return new ConsigneeList
                 {
                     Lists = await _context.Consignees
-                    .ProjectTo<ConsigneeDto>(_mapper.ConfigurationProvider)
+                    .ProjectTo<ConsigneeListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken)
                 };
             }

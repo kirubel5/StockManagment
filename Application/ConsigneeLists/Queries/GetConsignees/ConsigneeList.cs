@@ -5,7 +5,7 @@ namespace Application.ConsigneeLists.Queries.GetConsignees
 {
     public class ConsigneeList
     {
-        public IList<ConsigneeDto> Lists { get; set; } = new List<ConsigneeDto>();
+        public IList<ConsigneeListDto> Lists { get; set; } = new List<ConsigneeListDto>();
     }
 
 }

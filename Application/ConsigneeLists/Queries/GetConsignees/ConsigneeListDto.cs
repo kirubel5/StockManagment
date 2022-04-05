@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.ConsigneeLists.Queries.GetConsignees
 {
-    public class ConsigneeDto : IMapFrom<Consignee>
+    public class ConsigneeListDto : IMapFrom<Consignee>
     {
         public string Code { get; set; }
         public string Remark { get; set; }

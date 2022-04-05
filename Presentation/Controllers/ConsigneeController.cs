@@ -4,13 +4,26 @@ using StockManagment.Application.Consignees.Commands.UpdateConsignee;
 using StockManagment.Application.Consignees.Commands.DeleteConsignee;
 using StockManagment.Application.Consignees.Queries.GetConsignee;
 using System.Threading.Tasks;
+using Application.ConsigneeLists.Queries.GetConsignees;
 
 namespace StockManagment.Presentation.Controllers
 {
 
     public class ConsigneeController : ApiControllerBase
     {
-       
+        [HttpGet]
+        [Route("Get")]
+        public async Task<ActionResult<Application.Consignees.Queries.GetConsignee.ConsigneeDto>> Get([FromQuery] GetConsigneeQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<ConsigneeList>> Get([FromQuery] GetConsigneesQuery query)
+        {
+            return await Mediator.Send(query);
+        }
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateConsigneeCommand command)

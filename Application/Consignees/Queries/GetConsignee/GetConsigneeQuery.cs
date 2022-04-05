@@ -40,6 +40,6 @@ namespace StockManagment.Application.Consignees.Queries.GetConsignee
             {
                 throw;
             }
-        }
+        } 
     }
 }
