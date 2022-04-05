@@ -10,11 +10,7 @@ namespace StockManagment.Presentation.Controllers
 
     public class ConsigneeController : ApiControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<ConsigneeDto>> Get([FromQuery] GetConsigneeQuery query)
-        {
-            return await Mediator.Send(query);
-        }
+       
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateConsigneeCommand command)
