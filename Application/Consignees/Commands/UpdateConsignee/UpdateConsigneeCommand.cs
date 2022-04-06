@@ -16,6 +16,8 @@ namespace StockManagment.Application.Consignees.Commands.UpdateConsignee
         public string Name { get; set; }
         public string TradeName { get; set; }
         public string BusinessType { get; set; }
+        public string Group { get; set; }
+        public string Type { get; set; }
     }
 
     public class UpdateConsigneeCommanHandler : IRequestHandler<UpdateConsigneeCommand>
@@ -42,6 +44,8 @@ namespace StockManagment.Application.Consignees.Commands.UpdateConsignee
             entity.BusinessType = request.BusinessType;
             entity.Active = request.Active;
             entity.Remark = request.Remark;
+            entity.Type = request.Type;
+            entity.Group = request.Group;
 
             await _context.SaveChangesAsync(cancellationToken);
 
