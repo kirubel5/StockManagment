@@ -60,14 +60,14 @@ namespace Presentation
             //****************************************//
             services.AddCors(options =>
             {
-            var frontEndUrl = Configuration.GetValue<string>("frontEndUrl");
+               var frontEndUrl = Configuration.GetValue<string>("frontEndUrl");
 
-            options.AddDefaultPolicy(builder =>
-            {
-                builder.WithOrigins(frontEndUrl)
-                .AllowAnyMethod()
-                .AllowAnyHeader();
-            });
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(frontEndUrl)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
             });
             //****************************************//
 
