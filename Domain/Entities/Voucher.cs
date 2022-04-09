@@ -1,5 +1,6 @@
 ﻿using StockManagment.Domain.Common;
 using System;
+using System.Collections.Generic;
 
 namespace StockManagment.Domain.Entities
 {
@@ -12,5 +13,6 @@ namespace StockManagment.Domain.Entities
         public bool Void { get; set; }
         public string Unit { get; set; }
         public string LastOperation { get; set; }
+        public List<LineItem> LineItems { get; set; }
     }
 }

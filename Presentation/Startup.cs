@@ -48,14 +48,29 @@ namespace Presentation
             services.AddHttpContextAccessor();
 
             //************************************
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddReact();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddReact();
 
-            // Make sure a JS engine is registered, or you will get an error!
-            services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName)
-              .AddV8();
+            //// Make sure a JS engine is registered, or you will get an error!
+            //services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName)
+            //  .AddV8();
 
             //******************************************
+
+            //****************************************//
+            services.AddCors(options =>
+            {
+            var frontEndUrl = Configuration.GetValue<string>("frontEndUrl");
+
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.WithOrigins(frontEndUrl)
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+            });
+            //****************************************//
+
 
             services.AddControllersWithViews();
 
@@ -106,14 +121,16 @@ namespace Presentation
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
 
-            //******************************************
+            app.UseCors();
+            //*********************************************************//
             // Initialise ReactJS.NET. Must be before static files.
-            app.UseReact(config =>
-            {
-            });
-            //******************************************
+            //app.UseReact(config =>
+            //{
+            //});
+            //********************************************************//
 
             app.UseStaticFiles();
 
