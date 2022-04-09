@@ -8,6 +8,5 @@ namespace StockManagment.Domain.Entities
         public string Name { get; set; }
         public string TradeName { get; set; }
         public string BusinessType { get; set; }
-        public string Group { get; set; }
     }
 }

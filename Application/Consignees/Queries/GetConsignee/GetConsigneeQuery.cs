@@ -39,7 +39,7 @@ namespace StockManagment.Application.Consignees.Queries.GetConsignee
             catch (ArgumentNullException)
             {
                 throw;
-            }
+            } 
         } 
     }
 }

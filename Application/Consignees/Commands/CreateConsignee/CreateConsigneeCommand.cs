@@ -16,7 +16,6 @@ namespace StockManagment.Application.Consignees.Commands.CreateConsignee
         public string Name { get; set; }
         public string TradeName { get; set; }
         public string BusinessType { get; set; }
-        public string Group { get; set; }
     }
 
     public class CreateConsigneeCommanHandler : IRequestHandler<CreateConsigneeCommand>
@@ -38,7 +37,6 @@ namespace StockManagment.Application.Consignees.Commands.CreateConsignee
                 BusinessType = request.BusinessType,
                 Active = request.Active,
                 Remark = request.Remark,
-                Group = request.Group,
                 Type = request.Type
             };
 

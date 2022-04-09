@@ -5,6 +5,7 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
+using System.Collections.Generic;
 
 namespace StockManagment.Application.Vouchers.Commands.UpdateVoucher
 {
@@ -20,6 +21,7 @@ namespace StockManagment.Application.Vouchers.Commands.UpdateVoucher
         public bool Void { get; set; }
         public string Unit { get; set; }
         public string LastOperation { get; set; }
+        public List<LineItem> LineItems { get; set; }
     }
 
     public class UpdateVoucherCommanHandler : IRequestHandler<UpdateVoucherCommand>
@@ -51,6 +53,7 @@ namespace StockManagment.Application.Vouchers.Commands.UpdateVoucher
             entity.Void = request.Void;
             entity.Unit = request.Unit;
             entity.LastOperation = request.LastOperation;
+            entity.LineItems = request.LineItems;
 
             await _context.SaveChangesAsync(cancellationToken);
 

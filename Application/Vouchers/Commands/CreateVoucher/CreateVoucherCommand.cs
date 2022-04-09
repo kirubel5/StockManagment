@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Application.Common.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
 {
@@ -19,6 +20,7 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
         public bool Void { get; set; }
         public string Unit { get; set; }
         public string LastOperation { get; set; }
+        public List<LineItem> LineItems { get; set; }
     }
 
     public class CreateVoucherCommanHandler : IRequestHandler<CreateVoucherCommand>
@@ -42,7 +44,8 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
                 GrandTotal = request.GrandTotal,
                 Void = request.Void,
                 Unit = request.Unit,
-                LastOperation = request.LastOperation
+                LastOperation = request.LastOperation,
+                LineItems = request.LineItems
             };
 
             _context.Vouchers.Add(entity);

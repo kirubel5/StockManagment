@@ -12,6 +12,5 @@ namespace StockManagment.Application.Consignees.Queries.GetConsignee
         public string Name { get; set; }
         public string TradeName { get; set; }
         public string BusinessType { get; set; }
-        public string Group { get; set; }
     }
 }
