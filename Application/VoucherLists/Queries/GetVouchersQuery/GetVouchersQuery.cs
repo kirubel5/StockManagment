@@ -7,31 +7,31 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.ObjectTypeLists.Queries.GetObjectTypesQuery
+namespace Application.VoucherLists.Queries.GetVouchersQuery
 {
-    public class GetObjectTypesQuery : IRequest<ObjectTypeList>
+    public class GetVouchersQuery : IRequest<VoucherList>
     {
 
     }
 
-    public class GetObjectTypesQueryHandler : IRequestHandler<GetObjectTypesQuery, ObjectTypeList>
+    public class GetVouchersQueryHandler : IRequestHandler<GetVouchersQuery, VoucherList>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetObjectTypesQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetVouchersQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task<ObjectTypeList> Handle(GetObjectTypesQuery request, CancellationToken cancellationToken)
+        public async Task<VoucherList> Handle(GetVouchersQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                return new ObjectTypeList
+                return new VoucherList
                 {
-                    Lists = await _context.ObjectTypes
-                    .ProjectTo<ObjectTypeListDto>(_mapper.ConfigurationProvider)
+                    Lists = await _context.Vouchers
+                    .ProjectTo<VoucherListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken)
                 };
             }

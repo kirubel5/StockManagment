@@ -4,6 +4,7 @@ using StockManagment.Application.Persons.Commands.UpdatePerson;
 using StockManagment.Application.Persons.Commands.DeletePerson;
 using StockManagment.Application.Persons.Queries.GetPerson;
 using System.Threading.Tasks;
+using Application.PersonLists.Queries.GetPersonsQuery;
 
 namespace StockManagment.Presentation.Controllers
 {
@@ -12,6 +13,13 @@ namespace StockManagment.Presentation.Controllers
     {
         [HttpGet]
         public async Task<ActionResult<PersonDto>> Get([FromQuery] GetPersonQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<PersonList>> Get([FromQuery] GetPersonsQuery query)
         {
             return await Mediator.Send(query);
         }

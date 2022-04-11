@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="ConsigneeLists\Commands\" />
-    <Folder Include="PersonLists\" />
   </ItemGroup>
 
 </Project>

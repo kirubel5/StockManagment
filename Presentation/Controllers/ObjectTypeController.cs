@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.ObjectTypeLists.Queries.GetObjectTypesQuery;
+using Microsoft.AspNetCore.Mvc;
 using StockManagment.Application.ObjectTypes.Commands.CreateObjectType;
 using StockManagment.Application.ObjectTypes.Commands.DeleteObjectType;
 using StockManagment.Application.ObjectTypes.Commands.UpdateObjectType;
@@ -12,6 +13,13 @@ namespace Presentation.Controllers
     {
         [HttpGet]
         public async Task<ActionResult<ObjectTypeDto>> Get([FromQuery] GetObjectTypeQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<ObjectTypeList>> Get([FromQuery] GetObjectTypesQuery query)
         {
             return await Mediator.Send(query);
         }

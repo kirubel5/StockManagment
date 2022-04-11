@@ -4,6 +4,7 @@ using StockManagment.Application.Vouchers.Commands.UpdateVoucher;
 using StockManagment.Application.Vouchers.Commands.DeleteVoucher;
 using StockManagment.Application.Vouchers.Queries.GetVoucher;
 using System.Threading.Tasks;
+using Application.VoucherLists.Queries.GetVouchersQuery;
 
 namespace StockManagment.Presentation.Controllers
 {
@@ -12,6 +13,13 @@ namespace StockManagment.Presentation.Controllers
     {
         [HttpGet]
         public async Task<ActionResult<VoucherDto>> Get([FromQuery] GetVoucherQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<VoucherList>> Get([FromQuery] GetVouchersQuery query)
         {
             return await Mediator.Send(query);
         }

@@ -7,31 +7,31 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.ObjectTypeLists.Queries.GetObjectTypesQuery
+namespace Application.PersonLists.Queries.GetPersonsQuery
 {
-    public class GetObjectTypesQuery : IRequest<ObjectTypeList>
+    public class GetPersonsQuery : IRequest<PersonList>
     {
 
     }
 
-    public class GetObjectTypesQueryHandler : IRequestHandler<GetObjectTypesQuery, ObjectTypeList>
+    public class GetPersonsQueryHandler : IRequestHandler<GetPersonsQuery, PersonList>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetObjectTypesQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetPersonsQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task<ObjectTypeList> Handle(GetObjectTypesQuery request, CancellationToken cancellationToken)
+        public async Task<PersonList> Handle(GetPersonsQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                return new ObjectTypeList
+                return new PersonList
                 {
-                    Lists = await _context.ObjectTypes
-                    .ProjectTo<ObjectTypeListDto>(_mapper.ConfigurationProvider)
+                    Lists = await _context.Persons
+                    .ProjectTo<PersonListDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken)
                 };
             }
