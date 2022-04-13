@@ -13,11 +13,11 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
 
             builder.Property(t => t.Code)
                 .HasMaxLength(26)
-                .IsRequired();
+                .IsRequired();           
 
-            //builder.Property(t => t.Reference)
-            //    .HasMaxLength(26)
-            //    .IsRequired();
+            builder.Property(t => t.Element)
+               .HasMaxLength(26)
+               .IsRequired();
 
             builder.Property(t => t.UnitAmount)
                 .HasPrecision(18, 6)
@@ -41,6 +41,13 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
 
             builder.Property(t => t.Remark)
                 .HasMaxLength(100);
+
+          //  builder
+          //.HasOne<Element>()
+          //.WithMany()
+          //.HasForeignKey(p => p.Element);
+
+
         }
     }
 }

@@ -44,9 +44,14 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
                 GrandTotal = request.GrandTotal,
                 Void = request.Void,
                 Unit = request.Unit,
-                LastOperation = request.LastOperation,
-                LineItems = request.LineItems
+                LastOperation = request.LastOperation
             };
+
+            foreach (var item in request.LineItems)
+            {
+                //item.VoucherCode = request.Code;
+                _context.LineItems.Add(item);
+            }
 
             _context.Vouchers.Add(entity);
 

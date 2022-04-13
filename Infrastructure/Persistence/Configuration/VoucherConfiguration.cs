@@ -37,6 +37,10 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
 
             builder.Property(t => t.Remark)
                 .HasMaxLength(100);
+
+            builder
+            .HasMany(b => b.LineItems)
+            .WithOne();
         }
     }
 }
