@@ -20,7 +20,7 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(t => t.Element)
-                .HasMaxLength(50)
+                .HasMaxLength(26)
                 .IsRequired();
 
             builder.Property(t => t.UnitAmount)
@@ -50,9 +50,9 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .WithMany()
                 .HasForeignKey(p => p.Reference);
 
-            builder.HasOne<Element>()
-                .WithMany()
-                .HasForeignKey(p => p.Element);
+            //builder.HasOne<Element>()
+            //    .WithMany()
+            //    .HasForeignKey(p => p.Element);
         }
     }
 }

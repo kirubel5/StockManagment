@@ -4,14 +4,16 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413170704_UpdateLineItem")]
+    partial class UpdateLineItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -410,8 +412,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Element")
                         .IsRequired()
-                        .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<double>("Quantity")
                         .HasPrecision(18, 6)
@@ -446,6 +448,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.HasKey("Code");
+
+                    b.HasIndex("Element");
 
                     b.HasIndex("Reference");
 
@@ -634,6 +638,12 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("StockManagment.Domain.Entities.LineItem", b =>
                 {
+                    b.HasOne("StockManagment.Domain.Entities.Element", null)
+                        .WithMany()
+                        .HasForeignKey("Element")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StockManagment.Domain.Entities.Voucher", null)
                         .WithMany()
                         .HasForeignKey("Reference")
