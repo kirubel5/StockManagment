@@ -15,7 +15,7 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .HasMaxLength(26)
                 .IsRequired();
 
-            builder.Property(t => t.Type)
+            builder.Property(t => t.Reference)
                 .HasMaxLength(26)
                 .IsRequired();
 
@@ -46,10 +46,13 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
             builder.Property(t => t.Remark)
                 .HasMaxLength(100);
 
-            builder
-           .HasOne<ObjectType>()
-           .WithMany()
-           .HasForeignKey(p => p.Type);
+            builder.HasOne<Voucher>()
+                .WithMany()
+                .HasForeignKey(p => p.Reference);
+
+            builder.HasOne<Element>()
+                .WithMany()
+                .HasForeignKey(p => p.Element);
         }
     }
 }

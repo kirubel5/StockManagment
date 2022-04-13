@@ -4,7 +4,8 @@ namespace StockManagment.Domain.Entities
 {
     public class LineItem : EntityCommon
     {
-        public string Type { get; set; }
+        public string Reference { get; set; }
+        //public string Type { get; set; }
         public string Element { get; set; }
         public double UnitAmount { get; set; }
         public double Quantity { get; set; }

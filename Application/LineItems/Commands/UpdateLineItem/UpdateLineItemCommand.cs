@@ -12,7 +12,7 @@ namespace StockManagment.Application.LineItems.Commands.UpdateLineItem
     {
         public string Code { get; set; }
         public string Remark { get; set; }
-        public string Type { get; set; }
+        public string Reference { get; set; }
         public string Element { get; set; }
         public double UnitAmount { get; set; }
         public double Quantity { get; set; }
@@ -42,7 +42,7 @@ namespace StockManagment.Application.LineItems.Commands.UpdateLineItem
             }
 
             entity.Remark = request.Remark;
-            entity.Type = request.Type;
+            entity.Reference = request.Reference;
             entity.Element = request.Element;
             entity.UnitAmount = request.UnitAmount;
             entity.Quantity = request.Quantity;

@@ -11,7 +11,7 @@ namespace StockManagment.Application.LineItems.Commands.CreateLineItem
     {
         public string Code { get; set; }
         public string Remark { get; set; }
-        public string Type { get; set; }
+        public string Reference { get; set; }
         public string Element { get; set; }
         public double UnitAmount { get; set; }
         public double Quantity { get; set; }
@@ -36,7 +36,7 @@ namespace StockManagment.Application.LineItems.Commands.CreateLineItem
             {
                 Code = request.Code,
                 Remark = request.Remark,
-                Type = request.Type,
+                Reference = request.Reference,
                 Element = request.Element,
                 UnitAmount = request.UnitAmount,
                 Quantity = request.Quantity,
