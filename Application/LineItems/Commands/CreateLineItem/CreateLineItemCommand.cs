@@ -36,8 +36,8 @@ namespace StockManagment.Application.LineItems.Commands.CreateLineItem
             {
                 Code = request.Code,
                 Remark = request.Remark,
-                Reference = request.Reference,
-                Element = request.Element,
+                //Reference = request.Reference,
+                //Element = request.Element,
                 UnitAmount = request.UnitAmount,
                 Quantity = request.Quantity,
                 TaxableAmount = request.TaxableAmount,

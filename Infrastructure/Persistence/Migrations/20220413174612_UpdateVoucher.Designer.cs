@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220413170704_UpdateLineItem")]
-    partial class UpdateLineItem
+    [Migration("20220413174612_UpdateVoucher")]
+    partial class UpdateVoucher
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -412,8 +412,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Element")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(26)
+                        .HasColumnType("nvarchar(26)");
 
                     b.Property<double>("Quantity")
                         .HasPrecision(18, 6)
@@ -448,10 +448,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(26)");
 
                     b.HasKey("Code");
-
-                    b.HasIndex("Element");
-
-                    b.HasIndex("Reference");
 
                     b.HasIndex("VoucherCode");
 
@@ -638,18 +634,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("StockManagment.Domain.Entities.LineItem", b =>
                 {
-                    b.HasOne("StockManagment.Domain.Entities.Element", null)
-                        .WithMany()
-                        .HasForeignKey("Element")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagment.Domain.Entities.Voucher", null)
-                        .WithMany()
-                        .HasForeignKey("Reference")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StockManagment.Domain.Entities.Voucher", null)
                         .WithMany("LineItems")
                         .HasForeignKey("VoucherCode");

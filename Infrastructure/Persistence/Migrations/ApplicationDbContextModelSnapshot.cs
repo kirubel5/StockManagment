@@ -408,18 +408,14 @@ namespace Infrastructure.Migrations
                         .HasPrecision(18, 6)
                         .HasColumnType("float(18)");
 
-                    b.Property<string>("Element")
-                        .IsRequired()
-                        .HasMaxLength(26)
+                    b.Property<string>("ElementCode")
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<double>("Quantity")
                         .HasPrecision(18, 6)
                         .HasColumnType("float(18)");
 
-                    b.Property<string>("Reference")
-                        .IsRequired()
-                        .HasMaxLength(26)
+                    b.Property<string>("ReferenceCode")
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<string>("Remark")
@@ -442,14 +438,11 @@ namespace Infrastructure.Migrations
                         .HasPrecision(18, 6)
                         .HasColumnType("float(18)");
 
-                    b.Property<string>("VoucherCode")
-                        .HasColumnType("nvarchar(26)");
-
                     b.HasKey("Code");
 
-                    b.HasIndex("Reference");
+                    b.HasIndex("ElementCode");
 
-                    b.HasIndex("VoucherCode");
+                    b.HasIndex("ReferenceCode");
 
                     b.ToTable("LineItems");
                 });
@@ -634,15 +627,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("StockManagment.Domain.Entities.LineItem", b =>
                 {
-                    b.HasOne("StockManagment.Domain.Entities.Voucher", null)
+                    b.HasOne("StockManagment.Domain.Entities.Element", "Element")
                         .WithMany()
-                        .HasForeignKey("Reference")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ElementCode");
 
-                    b.HasOne("StockManagment.Domain.Entities.Voucher", null)
+                    b.HasOne("StockManagment.Domain.Entities.Voucher", "Reference")
                         .WithMany("LineItems")
-                        .HasForeignKey("VoucherCode");
+                        .HasForeignKey("ReferenceCode");
+
+                    b.Navigation("Element");
+
+                    b.Navigation("Reference");
                 });
 
             modelBuilder.Entity("StockManagment.Domain.Entities.Person", b =>

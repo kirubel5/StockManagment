@@ -42,8 +42,8 @@ namespace StockManagment.Application.LineItems.Commands.UpdateLineItem
             }
 
             entity.Remark = request.Remark;
-            entity.Reference = request.Reference;
-            entity.Element = request.Element;
+            //entity.Reference = request.Reference;
+            //entity.Element = request.Element;
             entity.UnitAmount = request.UnitAmount;
             entity.Quantity = request.Quantity;
             entity.TaxableAmount = request.TaxableAmount;

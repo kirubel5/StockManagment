@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220413171440_EditLineItem")]
-    partial class EditLineItem
+    [Migration("20220413180910_UpdateLineItem")]
+    partial class UpdateLineItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -410,9 +410,7 @@ namespace Infrastructure.Migrations
                         .HasPrecision(18, 6)
                         .HasColumnType("float(18)");
 
-                    b.Property<string>("Element")
-                        .IsRequired()
-                        .HasMaxLength(26)
+                    b.Property<string>("ElementCode")
                         .HasColumnType("nvarchar(26)");
 
                     b.Property<double>("Quantity")
@@ -449,9 +447,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Code");
 
-                    b.HasIndex("Element");
-
-                    b.HasIndex("Reference");
+                    b.HasIndex("ElementCode");
 
                     b.HasIndex("VoucherCode");
 
@@ -638,21 +634,15 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("StockManagment.Domain.Entities.LineItem", b =>
                 {
-                    b.HasOne("StockManagment.Domain.Entities.Element", null)
+                    b.HasOne("StockManagment.Domain.Entities.Element", "Element")
                         .WithMany()
-                        .HasForeignKey("Element")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StockManagment.Domain.Entities.Voucher", null)
-                        .WithMany()
-                        .HasForeignKey("Reference")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ElementCode");
 
                     b.HasOne("StockManagment.Domain.Entities.Voucher", null)
                         .WithMany("LineItems")
                         .HasForeignKey("VoucherCode");
+
+                    b.Navigation("Element");
                 });
 
             modelBuilder.Entity("StockManagment.Domain.Entities.Person", b =>
