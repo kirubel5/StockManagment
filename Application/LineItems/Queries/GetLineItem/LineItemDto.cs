@@ -10,7 +10,7 @@ namespace StockManagment.Application.LineItems.Queries.GetLineItem
         public double UnitAmount { get; set; }
         public double Quantity { get; set; }
         public double TaxableAmount { get; set; }
-        public string TaxType { get; set; }
+        public string TaxType { get; set; } = "VAT";
         public double TaxAmount { get; set; }
         public string ElementCode { get; set; }
         public string VoucherCode { get; set; }

@@ -11,7 +11,6 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
 
     public class CreateVoucherCommand : IRequest
     {
-        public string Code { get; set; }
         public string Remark { get; set; }
         public string Type { get; set; }
         public DateTime TimeStamp { get; set; }
@@ -33,9 +32,11 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
 
         public async Task<Unit> Handle(CreateVoucherCommand request, CancellationToken cancellationToken)
         {
+            string randomCode = new Random().Next(0, 100000).ToString();
+
             var entity = new Voucher
             {
-                Code = request.Code,
+                Code = randomCode,
                 Remark = request.Remark,
                 Type = request.Type,
                 TimeStamp = request.TimeStamp,
@@ -47,7 +48,9 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
 
             foreach (var item in request.LineItems)
             {
-                 item.VoucherCode = request.Code;
+                item.VoucherCode = randomCode;
+                item.Code = new Random().Next(0, 100000).ToString();
+
                 _context.LineItems.Add(item);
             }
 
