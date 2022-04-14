@@ -46,7 +46,8 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
             builder
            .HasOne<ObjectType>()
            .WithMany()
-           .HasForeignKey(p => p.Type);
+           .HasForeignKey(p => p.Type)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

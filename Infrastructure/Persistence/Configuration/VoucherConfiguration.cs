@@ -29,18 +29,13 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
             builder.Property(t => t.Void)
                 .IsRequired();
 
-            builder.Property(t => t.Unit)
-                .HasMaxLength(26);
-
-            builder.Property(t => t.LastOperation)
-                .HasMaxLength(26);
-
             builder.Property(t => t.Remark)
                 .HasMaxLength(100);
 
-            builder
-            .HasMany(b => b.LineItems)
-            .WithOne();
+            builder.HasOne<Consignee>()
+             .WithMany()
+             .HasForeignKey(p => p.ConsigneeCode)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

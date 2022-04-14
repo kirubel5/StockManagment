@@ -6,7 +6,7 @@ namespace StockManagment.Application.Consignees.Queries.GetConsignee
     public class ConsigneeDto : IMapFrom<Consignee>
     {
         public string Code { get; set; }
-        public string Remark { get; set; }
+        public string Remark { get; set; }    
         public string Type { get; set; }
         public bool Active { get; set; }
         public string Name { get; set; }

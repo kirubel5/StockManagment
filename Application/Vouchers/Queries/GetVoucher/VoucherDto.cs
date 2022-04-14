@@ -17,7 +17,6 @@ namespace StockManagment.Application.Vouchers.Queries.GetVoucher
         public double SubTotal { get; set; }
         public double GrandTotal { get; set; }
         public bool Void { get; set; }
-        public string Unit { get; set; }
-        public string LastOperation { get; set; }
+        public string ConsigneeCode { get; set; }
     }
 }

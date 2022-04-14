@@ -18,8 +18,7 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
         public double SubTotal { get; set; }
         public double GrandTotal { get; set; }
         public bool Void { get; set; }
-        public string Unit { get; set; }
-        public string LastOperation { get; set; }
+        public string ConsigneeCode { get; set; }
         public List<LineItem> LineItems { get; set; }
     }
 
@@ -43,13 +42,12 @@ namespace StockManagment.Application.Vouchers.Commands.CreateVoucher
                 SubTotal = request.SubTotal,
                 GrandTotal = request.GrandTotal,
                 Void = request.Void,
-                Unit = request.Unit,
-                LastOperation = request.LastOperation
+                ConsigneeCode = request.ConsigneeCode
             };
 
             foreach (var item in request.LineItems)
             {
-                //item.VoucherCode = request.Code;
+                 item.VoucherCode = request.Code;
                 _context.LineItems.Add(item);
             }
 

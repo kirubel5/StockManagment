@@ -11,14 +11,13 @@ namespace StockManagment.Application.LineItems.Commands.CreateLineItem
     {
         public string Code { get; set; }
         public string Remark { get; set; }
-        public string Reference { get; set; }
-        public string Element { get; set; }
         public double UnitAmount { get; set; }
         public double Quantity { get; set; }
         public double TaxableAmount { get; set; }
         public string TaxType { get; set; }
         public double TaxAmount { get; set; }
-        public double Cost { get; set; }
+        public string ElementCode { get; set; }
+        public string VoucherCode { get; set; }
     }
 
     public class CreateLineItemCommanHandler : IRequestHandler<CreateLineItemCommand>
@@ -36,14 +35,13 @@ namespace StockManagment.Application.LineItems.Commands.CreateLineItem
             {
                 Code = request.Code,
                 Remark = request.Remark,
-                //Reference = request.Reference,
-                //Element = request.Element,
                 UnitAmount = request.UnitAmount,
                 Quantity = request.Quantity,
                 TaxableAmount = request.TaxableAmount,
                 TaxType = request.TaxType,
                 TaxAmount = request.TaxAmount,
-                Cost = request.Cost
+                ElementCode = request.ElementCode,
+                VoucherCode = request.VoucherCode
             };
 
             _context.LineItems.Add(entity);

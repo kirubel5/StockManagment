@@ -11,10 +11,8 @@ namespace StockManagment.Application.Elements.Commands.CreateElement
         public string Code { get; set; }
         public string Remark { get; set; }
         public bool Active { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
         public string UOM { get; set; }
-        public string Group { get; set; }
-        public string Type { get; set; }
     }
 
     public class CreateElementCommandHandler : IRequestHandler<CreateElementCommand>
@@ -32,11 +30,9 @@ namespace StockManagment.Application.Elements.Commands.CreateElement
             {
                 Code = request.Code,
                 UOM = request.UOM,
-                Description = request.Description,
+                Name = request.Name,
                 Active = request.Active,
-                Group = request.Group,
-                Remark = request.Remark,
-                Type = request.Type
+                Remark = request.Remark
             };
 
             _context.Elements.Add(entity);

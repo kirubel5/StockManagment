@@ -19,9 +19,7 @@ namespace StockManagment.Application.Vouchers.Commands.UpdateVoucher
         public double SubTotal { get; set; }
         public double GrandTotal { get; set; }
         public bool Void { get; set; }
-        public string Unit { get; set; }
-        public string LastOperation { get; set; }
-        public List<LineItem> LineItems { get; set; }
+        public string ConsigneeCode { get; set; }
     }
 
     public class UpdateVoucherCommanHandler : IRequestHandler<UpdateVoucherCommand>
@@ -43,17 +41,13 @@ namespace StockManagment.Application.Vouchers.Commands.UpdateVoucher
                 throw new NotFoundException(nameof(Voucher), request.Code);
             }
 
-
-            entity.Code = request.Code;
             entity.Remark = request.Remark;
             entity.Type = request.Type;
             entity.TimeStamp = request.TimeStamp;
             entity.SubTotal = request.SubTotal;
             entity.GrandTotal = request.GrandTotal;
             entity.Void = request.Void;
-            entity.Unit = request.Unit;
-            entity.LastOperation = request.LastOperation;
-            entity.LineItems = request.LineItems;
+            entity.ConsigneeCode = request.ConsigneeCode;
 
             await _context.SaveChangesAsync(cancellationToken);
 

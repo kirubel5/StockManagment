@@ -36,13 +36,11 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
             builder.Property(t => t.Remark)
                 .HasMaxLength(100);
 
-            //builder.Property(t => t.Group)
-            //    .HasMaxLength(26);
-
             builder
             .HasOne<ObjectType>()
             .WithMany()
-            .HasForeignKey(p => p.Type);
+            .HasForeignKey(p => p.Type)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

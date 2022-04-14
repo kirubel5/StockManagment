@@ -15,12 +15,9 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .HasMaxLength(26)
                 .IsRequired();
 
-            builder.Property(t => t.Description)
-                .HasMaxLength(int.MaxValue);
-
-            builder.Property(t => t.Group)
+            builder.Property(t => t.Name)
                 .HasMaxLength(26)
-                .IsRequired();
+                .IsRequired();           
 
             builder.Property(t => t.Active)
                 .IsRequired();

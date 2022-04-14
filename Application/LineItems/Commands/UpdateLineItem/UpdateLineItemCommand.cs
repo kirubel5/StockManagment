@@ -12,14 +12,13 @@ namespace StockManagment.Application.LineItems.Commands.UpdateLineItem
     {
         public string Code { get; set; }
         public string Remark { get; set; }
-        public string Reference { get; set; }
-        public string Element { get; set; }
         public double UnitAmount { get; set; }
         public double Quantity { get; set; }
         public double TaxableAmount { get; set; }
         public string TaxType { get; set; }
         public double TaxAmount { get; set; }
-        public double Cost { get; set; }
+        public string ElementCode { get; set; }
+        public string VoucherCode { get; set; }
     }
 
     public class UpdateLineItemCommanHandler : IRequestHandler<UpdateLineItemCommand>
@@ -42,14 +41,13 @@ namespace StockManagment.Application.LineItems.Commands.UpdateLineItem
             }
 
             entity.Remark = request.Remark;
-            //entity.Reference = request.Reference;
-            //entity.Element = request.Element;
             entity.UnitAmount = request.UnitAmount;
             entity.Quantity = request.Quantity;
             entity.TaxableAmount = request.TaxableAmount;
             entity.TaxType = request.TaxType;
             entity.TaxAmount = request.TaxAmount;
-            entity.Cost = request.Cost;
+            entity.VoucherCode = request.VoucherCode;
+            entity.ElementCode = request.ElementCode;
 
             await _context.SaveChangesAsync(cancellationToken);
 

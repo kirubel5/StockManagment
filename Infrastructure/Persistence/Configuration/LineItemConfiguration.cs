@@ -15,7 +15,7 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .HasMaxLength(26)
                 .IsRequired();           
 
-            builder.Property(t => t.Element)
+            builder.Property(t => t.ElementCode)
                .HasMaxLength(26)
                .IsRequired();
 
@@ -35,19 +35,13 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .HasMaxLength(26)
                 .IsRequired();
 
-            builder.Property(t => t.Cost)
-                .HasPrecision(18, 6)
-                .IsRequired();
-
             builder.Property(t => t.Remark)
                 .HasMaxLength(100);
 
-          //  builder
-          //.HasOne<Element>()
-          //.WithMany()
-          //.HasForeignKey(p => p.Element);
-
-
+            builder.HasOne<Voucher>()
+              .WithMany()
+              .HasForeignKey(p => p.VoucherCode)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

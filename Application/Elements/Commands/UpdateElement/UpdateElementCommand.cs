@@ -12,10 +12,8 @@ namespace StockManagment.Application.Elements.Commands.UpdateElement
         public string Code { get; set; }
         public string Remark { get; set; }
         public bool Active { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
         public string UOM { get; set; }
-        public string Group { get; set; }
-        public string Type { get; set; }
     }
 
     public class UpdateElementCommandHandler : IRequestHandler<UpdateElementCommand>
@@ -37,12 +35,10 @@ namespace StockManagment.Application.Elements.Commands.UpdateElement
                 throw new NotFoundException(nameof(Element), request.Code);
             }
 
-            entity.Description = request.Description;
+            entity.Name = request.Name;
             entity.Active = request.Active;
             entity.Remark = request.Remark;
             entity.UOM = request.UOM;
-            entity.Group = request.Group;
-            entity.Type = request.Type;
 
             await _context.SaveChangesAsync(cancellationToken);
 
