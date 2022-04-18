@@ -33,6 +33,14 @@ namespace StockManagment.Application.Vouchers.Queries.GetVoucher
                     .Where(x => x.Code == request.Code)
                     .ProjectTo<VoucherDto>(_mapper.ConfigurationProvider).FirstOrDefault();
 
+                var b = _context.LineItems
+               .Where(x => x.VoucherCode == a.Code);
+
+                foreach (var item in b)
+                {
+                    a.LineItems.Add(item);
+                }
+
                 return Task.FromResult(a);
             }
             catch (ArgumentNullException)
