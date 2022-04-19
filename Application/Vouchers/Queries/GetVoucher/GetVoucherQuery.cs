@@ -35,6 +35,7 @@ namespace StockManagment.Application.Vouchers.Queries.GetVoucher
 
                 var b = _context.LineItems
                .Where(x => x.VoucherCode == a.Code);
+                //.ProjectTo<VoucherDto>(_mapper.ConfigurationProvider);
 
                 foreach (var item in b)
                 {
