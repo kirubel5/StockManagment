@@ -104,6 +104,8 @@ namespace Application.Roles.Commands.UpdateCommand
             entity.VoucherUpdate = request.VoucherUpdate;
             entity.VoucherDelete = request.VoucherDelete;
 
+            await _context.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }
