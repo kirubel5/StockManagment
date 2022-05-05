@@ -1,5 +1,7 @@
 ﻿using Application.Roles.Commands.CreateCommand;
 using Application.Roles.Commands.DeleteCommand;
+using Application.Roles.Commands.UpdateCommand;
+using Application.Roles.Queries.GetRole;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Presentation.Controllers;
 using System;
@@ -11,11 +13,11 @@ namespace Presentation.Controllers
 {
     public class RoleController : ApiControllerBase
     {
-        //[HttpGet]
-        //public async Task<ActionResult<ConsigneeList>> Get([FromQuery] GetConsigneesQuery query)
-        //{
-        //    return await Mediator.Send(query);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<RoleDto>> Get([FromQuery] GetRoleQuery query)
+        {
+            return await Mediator.Send(query);
+        }
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateRoleCommand command)
@@ -47,6 +49,18 @@ namespace Presentation.Controllers
         {
             await Mediator.Send(new AddUserRoleCommand { User = user, RoleName = roleName });
 
+            return NoContent();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Update(string name, UpdateRoleCommand command)
+        {
+            if (name != command.Name)
+            {
+                return BadRequest();
+            }
+
+            await Mediator.Send(command);
             return NoContent();
         }
     }
