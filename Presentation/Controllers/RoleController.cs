@@ -31,5 +31,23 @@ namespace Presentation.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete]
+        [Route("RemoveUserFromRole")]
+        public async Task<ActionResult> RemoveUserFromRole(string user, string roleName)
+        {
+            await Mediator.Send(new RemoveUserRoleCommand { User = user, RoleName = roleName });
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("AddUserToRole")]
+        public async Task<ActionResult> AddUserToRole(string user, string roleName)
+        {
+            await Mediator.Send(new AddUserRoleCommand { User = user, RoleName = roleName });
+
+            return NoContent();
+        }
     }
 }
