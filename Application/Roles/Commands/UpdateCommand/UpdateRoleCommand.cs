@@ -46,7 +46,7 @@ namespace Application.Roles.Commands.UpdateCommand
 
         public async Task<Unit> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Roles
+            var entity = await _context.RoleModels
                  .FindAsync(new object[] { request.Name }, cancellationToken);
 
             if (entity == null)

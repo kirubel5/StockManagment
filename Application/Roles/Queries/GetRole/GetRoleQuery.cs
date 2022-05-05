@@ -31,7 +31,7 @@ namespace Application.Roles.Queries.GetRole
         {
             try
             {
-                var a = _context.Roles
+                var a = _context.RoleModels
                     .Where(x => x.Name == request.Name)
                     .ProjectTo<RoleDto>(_mapper.ConfigurationProvider).FirstOrDefault();
 

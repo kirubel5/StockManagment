@@ -13,7 +13,7 @@ namespace Application.Common.Interfaces
         DbSet<ObjectType> ObjectTypes { get; }
         DbSet<Person> Persons { get; }
         DbSet<Voucher> Vouchers { get; }
-        DbSet<RoleModel> Roles { get; }
+        DbSet<RoleModel> RoleModels { get; }
 
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

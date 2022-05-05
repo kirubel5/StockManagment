@@ -1,4 +1,5 @@
-﻿using Application.Roles.Commands.CreateCommand;
+﻿using Application.RoleList.Queries.GetRolesQuery;
+using Application.Roles.Commands.CreateCommand;
 using Application.Roles.Commands.DeleteCommand;
 using Application.Roles.Commands.UpdateCommand;
 using Application.Roles.Queries.GetRole;
@@ -15,6 +16,13 @@ namespace Presentation.Controllers
     {
         [HttpGet]
         public async Task<ActionResult<RoleDto>> Get([FromQuery] GetRoleQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<RoleList>> GetAll([FromQuery] GetRolesQuery query)
         {
             return await Mediator.Send(query);
         }
