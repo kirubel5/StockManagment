@@ -35,6 +35,7 @@ namespace Infrastructure
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            // .AddAspNetIdentity<ApplicationUser>();
 
             services.AddTransient<IIdentityService, IdentityService>();
 
@@ -46,6 +47,5 @@ namespace Infrastructure
 
             return services;
         }
-
     }
 }

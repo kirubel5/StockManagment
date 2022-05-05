@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace StockManagment.Infrastructure.Persistence.Configurations
 {
 
-    public class VoucherConfiguration : IEntityTypeConfiguration<Voucher>
-    {
+    public class VoucherConfiguration 
+    { 
         public void Configure(EntityTypeBuilder<Voucher> builder)
         {
             builder.HasKey(t => t.Code);

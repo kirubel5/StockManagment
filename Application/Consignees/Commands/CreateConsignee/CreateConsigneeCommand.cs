@@ -9,7 +9,7 @@ namespace StockManagment.Application.Consignees.Commands.CreateConsignee
 
     public class CreateConsigneeCommand : IRequest
     {
-        public string Code { get; set; }
+        public string Code { get; set; } 
         public string Remark { get; set; }
         public string Type { get; set; }
         public bool Active { get; set; }

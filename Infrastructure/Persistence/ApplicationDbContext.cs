@@ -30,6 +30,7 @@ namespace Infrastructure.Persistence
         public DbSet<ObjectType> ObjectTypes => Set<ObjectType>();
         public DbSet<Person> Persons => Set<Person>();
         public DbSet<Voucher> Vouchers => Set<Voucher>();
+        public DbSet<RoleModel> RoleModels => Set<RoleModel>();
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -37,7 +38,6 @@ namespace Infrastructure.Persistence
 
             return result;
         }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

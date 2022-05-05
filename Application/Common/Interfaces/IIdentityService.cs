@@ -17,5 +17,15 @@ namespace Application.Common.Interfaces
         Task<(bool Result, string UserId)> CreateUserAsync(string userName, string password);
 
         Task<bool> DeleteUserAsync(string userId);
+
+        Task CreateRole(string roleName);
+
+        Task DeleteRole(string roleName);
+        List<string> GetRoles();
+
+        Task AddUserToRole(string id, string roleName);
+
+        Task RemoveUserFromRole(string id, string roleName);
+
     }
 }

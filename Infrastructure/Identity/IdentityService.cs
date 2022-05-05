@@ -13,11 +13,13 @@ namespace Infrastructure.Identity
     public class IdentityService : IIdentityService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationUser> roleManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
             IAuthorizationService authorizationService)
         {
@@ -81,6 +83,101 @@ namespace Infrastructure.Identity
             var result = await _userManager.DeleteAsync(user);
 
             return true;
+        }
+        
+        //Additions
+        public async Task CreateRole(string roleName)
+        {
+            try
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (!roleExists)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+            catch (Exception)
+            {
+                throw ;
+            }
+        }
+
+        public async Task DeleteRole(string roleName)
+        {
+            try
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (roleExists)
+                {
+                    await _roleManager.DeleteAsync(new IdentityRole(roleName));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<string> GetRoles()
+        {
+            List<string> roles = new List<string>();
+
+            try
+            {
+                roles = (List<string>)_roleManager.Roles;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return roles;
+        }
+
+        public async Task AddUserToRole(string id, string roleName)
+        {
+            try
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (roleExists)
+                {
+                    var user = await _userManager.FindByIdAsync(id);
+
+                    if (user != null)
+                    {
+                        await _userManager.AddToRoleAsync(user, roleName);
+                    }
+                }                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task RemoveUserFromRole(string id, string roleName)
+        {
+            try
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (roleExists)
+                {
+                    var user = await _userManager.FindByIdAsync(id);
+
+                    if (user != null)
+                    {
+                        await _userManager.RemoveFromRoleAsync(user, roleName);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

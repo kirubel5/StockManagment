@@ -41,7 +41,9 @@ namespace Presentation
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddHttpContextAccessor();
+
             
+ 
             services.AddCors(options =>
             {
                var frontEndUrl = Configuration.GetValue<string>("frontEndUrl");
@@ -67,7 +69,7 @@ namespace Presentation
             .AddJwtBearer("JwtBearer", jwtBearerOptions =>
             {
                 jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                {
+                {                   
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("HiddenFileName")),
                     ValidateIssuer = false,
@@ -75,6 +77,10 @@ namespace Presentation
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.FromMinutes(5)
                 };
+
+                jwtBearerOptions.Authority = "https://localhost:5001";
+                jwtBearerOptions.Audience = "api1";
+
             }); 
 
             services.AddSwaggerGen(setup =>
@@ -89,7 +95,7 @@ namespace Presentation
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -100,7 +106,6 @@ namespace Presentation
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -109,8 +114,8 @@ namespace Presentation
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();
+
+            app.UseAuthorization();            
 
             app.UseSwagger();
             app.UseSwaggerUI(x =>
