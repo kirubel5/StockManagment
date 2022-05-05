@@ -33,8 +33,8 @@ namespace Infrastructure
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            //services.AddIdentityServer()
+            //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
             // .AddAspNetIdentity<ApplicationUser>();
 
             services.AddTransient<IIdentityService, IdentityService>();

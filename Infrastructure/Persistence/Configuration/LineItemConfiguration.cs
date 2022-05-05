@@ -20,15 +20,15 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                .IsRequired();
 
             builder.Property(t => t.UnitAmount)
-                .HasPrecision(18, 6)
+                //.HasPrecision(18, 6)
                 .IsRequired();
 
             builder.Property(t => t.Quantity)
-                .HasPrecision(18, 6)
+                //.HasPrecision(18, 6)
                 .IsRequired();
 
             builder.Property(t => t.TaxableAmount)
-                .HasPrecision(18, 6)
+               // .HasPrecision(18, 6)
                 .IsRequired();
 
             builder.Property(t => t.TaxType)

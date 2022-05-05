@@ -9,6 +9,7 @@ namespace StockManagment.Infrastructure.Persistence.Configuration
         public void Configure(EntityTypeBuilder<RoleModel> builder)
         {
             builder.HasKey(t => t.Name);
+           // builder.HasNoKey();
 
             builder.Property(t => t.Name)
                 .HasMaxLength(26)

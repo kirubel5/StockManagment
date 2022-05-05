@@ -19,10 +19,11 @@ namespace Infrastructure.Identity
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationUser> roleManager,
+            RoleManager<IdentityRole> roleManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
             IAuthorizationService authorizationService)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
@@ -99,7 +100,7 @@ namespace Infrastructure.Identity
             }
             catch (Exception)
             {
-                throw ;
+                throw;
             }
         }
 
@@ -150,7 +151,7 @@ namespace Infrastructure.Identity
                     {
                         await _userManager.AddToRoleAsync(user, roleName);
                     }
-                }                
+                }
             }
             catch (Exception)
             {

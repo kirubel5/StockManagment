@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace StockManagment.Infrastructure.Persistence.Configurations
 {
 
-    public class VoucherConfiguration 
+    public class VoucherConfiguration : IEntityTypeConfiguration<Voucher>
     { 
         public void Configure(EntityTypeBuilder<Voucher> builder)
         {
@@ -19,11 +19,11 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(t => t.SubTotal)
-                .HasPrecision(18,6)
+               // .HasPrecision(18,6)
                 .IsRequired();
 
             builder.Property(t => t.GrandTotal)
-                .HasPrecision(18, 6)
+               // .HasPrecision(18, 6)
                 .IsRequired();
 
             builder.Property(t => t.Void)

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace Infrastructure.Persistence
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+       // public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,
