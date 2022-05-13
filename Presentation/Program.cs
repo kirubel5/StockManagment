@@ -21,8 +21,6 @@ namespace Presentation
         //    CreateHostBuilder(args).Build().Run();
         //}
 
-
-
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();

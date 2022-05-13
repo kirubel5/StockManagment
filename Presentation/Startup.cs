@@ -19,6 +19,7 @@ using Application;
 using Infrastructure;
 using Application.Common.Interfaces;
 using Presentation.Services;
+using Infrastructure.Identity;
 
 namespace Presentation
 {
@@ -38,11 +39,8 @@ namespace Presentation
             services.AddInfrastructure(Configuration);
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
-
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddHttpContextAccessor();
-
-            
+            services.AddHttpContextAccessor();            
  
             services.AddCors(options =>
             {
@@ -60,28 +58,28 @@ namespace Presentation
 
             services.AddRazorPages();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = "JwtBearer";
-                options.DefaultChallengeScheme = "JwtBearer";
-            })
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = "JwtBearer";
+            //    options.DefaultChallengeScheme = "JwtBearer";
+            //})
 
-            .AddJwtBearer("JwtBearer", jwtBearerOptions =>
-            {
-                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                {                   
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("HiddenFileName")),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(5)
-                };
+            //.AddJwtBearer("JwtBearer", jwtBearerOptions =>
+            //{
+            //    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+            //    {                   
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("HiddenFileName")),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //        ValidateLifetime = true,
+            //        ClockSkew = TimeSpan.FromMinutes(5)
+            //    };
 
-                jwtBearerOptions.Authority = "https://localhost:5001";
-                jwtBearerOptions.Audience = "api1";
+            //    jwtBearerOptions.Authority = "https://localhost:5001";
+            //    jwtBearerOptions.Audience = "api1";
 
-            }); 
+            //}); 
 
             services.AddSwaggerGen(setup =>
             {
@@ -115,7 +113,8 @@ namespace Presentation
             app.UseRouting();
             app.UseAuthentication();
 
-            app.UseAuthorization();            
+            app.UseAuthorization();
+            app.UseIdentityServer();
 
             app.UseSwagger();
             app.UseSwaggerUI(x =>

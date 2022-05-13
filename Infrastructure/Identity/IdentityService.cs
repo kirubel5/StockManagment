@@ -65,18 +65,20 @@ namespace Infrastructure.Identity
                 return false;
             }
 
-            var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
+            //  var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
 
-            var result = await _authorizationService.AuthorizeAsync(principal, policyName);
+            //var result = await _authorizationService.AuthorizeAsync(principal, policyName);
 
-            return result.Succeeded;
+            //return result.Succeeded;
+            return false;
         }
 
         public async Task<bool> DeleteUserAsync(string userId)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-            return user != null ? await DeleteUserAsync(user) : true;
+            //return user != null ? await DeleteUserAsync(user) : true;
+            return false;
         }
 
         public async Task<bool> DeleteUserAsync(ApplicationUser user)

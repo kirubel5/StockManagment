@@ -6,17 +6,18 @@ using Application.Common.Interfaces;
 using StockManagment.Domain.Common;
 using StockManagment.Domain.Entities;
 using Infrastructure.Identity;
-//using Duende.IdentityServer.EntityFramework.Options;
+//using IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Persistence
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
-       // public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+        //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options,

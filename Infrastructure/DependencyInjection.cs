@@ -28,15 +28,16 @@ namespace Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
+
             services
                 .AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
-            //services.AddIdentityServer()
-            //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-            // .AddAspNetIdentity<ApplicationUser>();
-
+            services.AddIdentityServer()
+                    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                       
             services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddAuthentication()

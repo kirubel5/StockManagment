@@ -1,3 +1,4 @@
+using Application.Common.Interfaces;
 using IdentityServerHost.Controllers;
 using Infrastructure.Identity;
 using Infrastructure.Persistence;
@@ -30,15 +31,19 @@ namespace IdentityServerHost
         {
             services.AddControllersWithViews();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+               .AddEntityFrameworkStores<ApplicationDbContext>()
+               .AddDefaultTokenProviders();
+
+
             services.AddIdentityServer()
                 .AddSigningCredential("CN=localhost")
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                // .AddTestUsers(TestUsers.Users)
-                .AddInMemoryApiScopes(Config.GetApiScopes());
-                //.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-               // .AddAspNetIdentity<ApplicationUser>();
+                .AddTestUsers(TestUsers.Users)
+                .AddInMemoryApiScopes(Config.GetApiScopes())
+                .AddAspNetIdentity<ApplicationUser>();
 
             services.AddRazorPages();
         }
@@ -62,6 +67,7 @@ namespace IdentityServerHost
 
             app.UseRouting();
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

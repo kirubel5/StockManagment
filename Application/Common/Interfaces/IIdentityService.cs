@@ -21,6 +21,7 @@ namespace Application.Common.Interfaces
         Task CreateRole(string roleName);
 
         Task DeleteRole(string roleName);
+
         List<string> GetRoles();
 
         Task AddUserToRole(string id, string roleName);
