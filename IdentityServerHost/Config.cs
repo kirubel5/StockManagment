@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IdentityServerHost
 {
-    public class Config
+    public static class Config
     {
         public static IEnumerable<Client> GetClients()
         {

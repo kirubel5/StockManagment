@@ -5,10 +5,11 @@ using StockManagment.Application.Consignees.Commands.DeleteConsignee;
 using StockManagment.Application.Consignees.Queries.GetConsignee;
 using System.Threading.Tasks;
 using Application.ConsigneeLists.Queries.GetConsignees;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockManagment.Presentation.Controllers
 {
-
+    [Authorize]
     public class ConsigneeController : ApiControllerBase
     {
         [HttpGet]

@@ -6,6 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.Persistence;
 using Application.Common.Interfaces;
 using Infrastructure.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4;
 
 namespace Infrastructure
 {
@@ -28,20 +33,103 @@ namespace Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
-
-            services
-                .AddDefaultIdentity<ApplicationUser>()
-                .AddRoles<IdentityRole>()
+            // //////////////////////////////////////
+            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddRoles<IdentityRole>();
 
-            services.AddIdentityServer()
-                    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-                       
+            var builder = services.AddIdentityServer()
+              .AddInMemoryIdentityResources(Config.GetIdentityResources())
+              .AddInMemoryApiScopes(Config.GetApiScopes())
+              .AddInMemoryClients(Config.GetClients());
+              //.AddIdentityResources(Config.GetIdentityResources())
+              //.AddApiScopes(Config.GetApiScopes())
+              //.AddClients(Config.GetClients());
+
+
+
+
+            builder.AddDeveloperSigningCredential();
+
+            services.AddAuthentication()               
+                .AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                    options.SaveTokens = true;
+
+                    options.Authority = "https://demo.identityserver.io/";
+                    options.ClientId = "interactive.confidential";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        RoleClaimType = "role"
+                    };
+                });
+
+
+
+            // ////////////////////////////////////
+            //************************************//
+
+            
+            var identityConfiguration = configuration
+                .GetSection(nameof(IdentityConfiguration))
+                .Get<IdentityConfiguration>();
+
+            services.AddSingleton(identityConfiguration);
+
+            // Configure the Identity options
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 12;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = identityConfiguration.TokenRequireHttpsMetadata;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidAudience = identityConfiguration.TokenAudience,
+                        ValidIssuer = identityConfiguration.TokenIssuer,
+                        IssuerSigningKey = identityConfiguration.SecurityKey
+                    };
+                });
+
             services.AddTransient<IIdentityService, IdentityService>();
+            /**************************************************************/
+            //services.AddIdentityServer()
+            // .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            //services.AddAuthentication();
+            // .AddIdentityServerJwt();
+           // services.AddIdentityServer();
+          //  services.AddAuthorization();
 
             services.AddAuthorization(options =>
                 options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));

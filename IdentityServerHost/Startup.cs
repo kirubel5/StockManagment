@@ -59,15 +59,16 @@ namespace IdentityServerHost
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            app.
-                UseHttpsRedirection();
+
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseIdentityServer();
 
             app.UseRouting();
-            app.UseAuthorization();
-            app.UseAuthentication();
+
+           // app.UseAuthorization();
+           // app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

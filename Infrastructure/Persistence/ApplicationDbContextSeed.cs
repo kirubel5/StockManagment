@@ -26,6 +26,21 @@ namespace Infrastructure.Persistence
                 await userManager.CreateAsync(administrator, "Administrator1!");
                 await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
+
+            var casherRole = new IdentityRole("StoreKeeper");
+
+            if (roleManager.Roles.All(r => r.Name != casherRole.Name))
+            {
+                await roleManager.CreateAsync(casherRole);
+            }
+
+            var casher = new ApplicationUser { UserName = "casher@localhost", Email = "casher@localhost" };
+
+            if (userManager.Users.All(u => u.UserName != casher.UserName))
+            {
+                await userManager.CreateAsync(casher, "Casher12345!");
+                await userManager.AddToRolesAsync(casher, new[] { casherRole.Name });
+            }
         }
     }
 }

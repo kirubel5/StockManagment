@@ -20,6 +20,8 @@ using Infrastructure;
 using Application.Common.Interfaces;
 using Presentation.Services;
 using Infrastructure.Identity;
+using System.Reflection;
+using System.IO;
 
 namespace Presentation
 {
@@ -32,7 +34,6 @@ namespace Presentation
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication();
@@ -57,39 +58,38 @@ namespace Presentation
             services.AddControllersWithViews();
 
             services.AddRazorPages();
-
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = "JwtBearer";
-            //    options.DefaultChallengeScheme = "JwtBearer";
-            //})
-
-            //.AddJwtBearer("JwtBearer", jwtBearerOptions =>
-            //{
-            //    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-            //    {                   
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("HiddenFileName")),
-            //        ValidateIssuer = false,
-            //        ValidateAudience = false,
-            //        ValidateLifetime = true,
-            //        ClockSkew = TimeSpan.FromMinutes(5)
-            //    };
-
-            //    jwtBearerOptions.Authority = "https://localhost:5001";
-            //    jwtBearerOptions.Audience = "api1";
-
-            //}); 
-
-            services.AddSwaggerGen(setup =>
+                     
+            services.AddSwaggerGen(swaggerOptions =>
             {
-                setup.SwaggerDoc(
-                  "v1",
-                  new OpenApiInfo
-                  {
-                      Title = "Ethiopia Api",
-                      Version = "v1"
-                  });
+                swaggerOptions.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock management web API", Version = "v1" });
+
+                swaggerOptions.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme.
+                      Enter 'Bearer' [space] and then your token in the text input below:",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Scheme = "Bearer",
+                    Type = SecuritySchemeType.ApiKey,
+                });
+
+                swaggerOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            In = ParameterLocation.Header,
+                            Name = "Bearer",
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                        },
+                        new List<string>()
+                    }
+                });               
             });
         }
 
@@ -110,11 +110,11 @@ namespace Presentation
             app.UseHttpsRedirection();
             app.UseCors();
             app.UseStaticFiles();
-            app.UseRouting();
-            app.UseAuthentication();
+            app.UseRouting();            
 
-            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseIdentityServer();
+            app.UseAuthorization();
 
             app.UseSwagger();
             app.UseSwaggerUI(x =>

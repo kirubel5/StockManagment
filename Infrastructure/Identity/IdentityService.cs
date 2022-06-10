@@ -1,12 +1,18 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Models.Identity;
+using IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
+//using System.IdentityModel.Configuration;
+
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Infrastructure.Identity
 {
@@ -16,17 +22,20 @@ namespace Infrastructure.Identity
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IdentityConfiguration _identityConfiguration;
 
         public IdentityService(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-            IAuthorizationService authorizationService)
+            IAuthorizationService authorizationService,
+            IdentityConfiguration identityConfiguration)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
+            _identityConfiguration = identityConfiguration;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
@@ -65,20 +74,18 @@ namespace Infrastructure.Identity
                 return false;
             }
 
-            //  var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
+            var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
 
-            //var result = await _authorizationService.AuthorizeAsync(principal, policyName);
+            var result = await _authorizationService.AuthorizeAsync(principal, policyName);
 
-            //return result.Succeeded;
-            return false;
+            return result.Succeeded;
         }
 
         public async Task<bool> DeleteUserAsync(string userId)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-            //return user != null ? await DeleteUserAsync(user) : true;
-            return false;
+            return user != null ? await DeleteUserAsync(user) : true;
         }
 
         public async Task<bool> DeleteUserAsync(ApplicationUser user)
@@ -181,6 +188,66 @@ namespace Infrastructure.Identity
             {
                 throw;
             }
+        }
+
+        private async Task<List<Claim>> GetClaimsAsync(ApplicationUser user)
+        {
+            var userClaims = new List<Claim>
+            {
+                new Claim(JwtClaimTypes.Name, user.UserName),
+                new Claim(JwtClaimTypes.Id, user.Id)
+            };
+
+            userClaims.AddRange(await _userManager.GetClaimsAsync(user));
+
+            userClaims.AddRange((await _userManager.GetRolesAsync(user))
+                .Select(role => new Claim(JwtClaimTypes.Role, role)));
+
+            return userClaims;
+        }
+
+        private async Task<AuthenticationResponse> GenerateJwtForUserAsync(ApplicationUser user)
+        {
+            var userClaims = await GetClaimsAsync(user);
+
+            var expiresOn = DateTime.Now.AddDays(_identityConfiguration.DaysBeforeExpiration);
+
+            var token = new JwtSecurityToken(
+                _identityConfiguration.TokenIssuer,
+                _identityConfiguration.TokenAudience,
+                expires: expiresOn,
+                claims: userClaims,
+                signingCredentials: new SigningCredentials(
+                    _identityConfiguration.SecurityKey,
+                    _identityConfiguration.SecurityAlgorithm)
+            );
+
+            return new AuthenticationResponse
+            {
+                ExpireOn = token.ValidTo,
+                Token = new JwtSecurityTokenHandler()
+                    .WriteToken(token)
+            };
+        }
+
+        public async Task<AuthenticationResponse> GetJwtForUserAsync(string username, string password)
+        {
+            var userAuthentication = await GetAuthenticatedUserAsync(username, password);
+           
+            return userAuthentication == null
+                ? null
+                : await GenerateJwtForUserAsync(userAuthentication);
+        }
+
+        private async Task<ApplicationUser> GetAuthenticatedUserAsync(
+            string username, string password)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+
+            return user != null
+                   && await _userManager.CheckPasswordAsync(user, password)
+                ? user
+                : null;
         }
     }
 }

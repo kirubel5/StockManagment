@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Common.Models.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,7 @@ namespace Application.Common.Interfaces
         Task AddUserToRole(string id, string roleName);
 
         Task RemoveUserFromRole(string id, string roleName);
+        Task<AuthenticationResponse> GetJwtForUserAsync(string username, string password);
 
     }
 }
