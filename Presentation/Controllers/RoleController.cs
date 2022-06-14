@@ -3,6 +3,7 @@
 //using Application.Roles.Commands.DeleteCommand;
 //using Application.Roles.Commands.UpdateCommand;
 //using Application.Roles.Queries.GetRole;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Presentation.Controllers;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class RoleController : ApiControllerBase
     {
         //[HttpGet]

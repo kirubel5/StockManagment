@@ -5,10 +5,12 @@ using StockManagment.Application.Persons.Commands.DeletePerson;
 using StockManagment.Application.Persons.Queries.GetPerson;
 using System.Threading.Tasks;
 using Application.PersonLists.Queries.GetPersonsQuery;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockManagment.Presentation.Controllers
 {
 
+    [Authorize]
     public class PersonController : ApiControllerBase
     {
         [HttpGet]

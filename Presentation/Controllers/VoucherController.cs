@@ -5,10 +5,12 @@ using StockManagment.Application.Vouchers.Commands.DeleteVoucher;
 using StockManagment.Application.Vouchers.Queries.GetVoucher;
 using System.Threading.Tasks;
 using Application.VoucherLists.Queries.GetVouchersQuery;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockManagment.Presentation.Controllers
 {
 
+    [Authorize]
     public class VoucherController : ApiControllerBase
     {
         [HttpGet]

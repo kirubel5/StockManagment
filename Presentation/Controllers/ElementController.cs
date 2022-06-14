@@ -1,4 +1,5 @@
 ﻿using Application.ElementLists.Queries.GetElements;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Application.Elements.Commands.CreateElement;
 using StockManagment.Application.Elements.Commands.DeleteElement;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace StockManagment.Presentation.Controllers
 {
+    [Authorize]
     public class ElementController : ApiControllerBase
     {
         [HttpGet]

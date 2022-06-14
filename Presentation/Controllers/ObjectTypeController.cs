@@ -1,4 +1,5 @@
 ﻿using Application.ObjectTypeLists.Queries.GetObjectTypesQuery;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Application.ObjectTypes.Commands.CreateObjectType;
 using StockManagment.Application.ObjectTypes.Commands.DeleteObjectType;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
+    [Authorize]
     public class ObjectTypeController : ApiControllerBase
     {
         [HttpGet]

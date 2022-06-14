@@ -4,10 +4,11 @@ using StockManagment.Application.LineItems.Commands.UpdateLineItem;
 using StockManagment.Application.LineItems.Commands.DeleteLineItem;
 using StockManagment.Application.LineItems.Queries.GetLineItem;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StockManagment.Presentation.Controllers
 {
-
+    [Authorize]
     public class LineItemController : ApiControllerBase
     {
         [HttpGet]
