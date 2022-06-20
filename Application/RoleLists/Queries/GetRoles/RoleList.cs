@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.RoleLists.Queries.GetRoles
 {
-    class RoleList
+    public class RoleList
     {
+        public IList<string> Lists { get; set; } = new List<string>();
     }
 }

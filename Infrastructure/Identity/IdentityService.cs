@@ -131,7 +131,7 @@ namespace Infrastructure.Identity
         }
 
         public List<string> GetRoles()
-        {
+        {           
             List<string> roles = new List<string>();
 
             try
