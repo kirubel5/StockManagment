@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Domain.Entities;
 
 namespace Infrastructure.Persistence
 {
@@ -31,7 +32,8 @@ namespace Infrastructure.Persistence
         public DbSet<ObjectType> ObjectTypes => Set<ObjectType>();
         public DbSet<Person> Persons => Set<Person>();
         public DbSet<Voucher> Vouchers => Set<Voucher>();
-        public DbSet<RoleModel> RoleModels => Set<RoleModel>();
+        public DbSet<Resource> Resources => Set<Resource>();
+        public DbSet<ResourceRole> ResourceRoles => Set<ResourceRole>();
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

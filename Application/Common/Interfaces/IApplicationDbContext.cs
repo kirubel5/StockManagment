@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using StockManagment.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace Application.Common.Interfaces
         DbSet<ObjectType> ObjectTypes { get; }
         DbSet<Person> Persons { get; }
         DbSet<Voucher> Vouchers { get; }
-        DbSet<RoleModel> RoleModels { get; }
-
+        DbSet<Resource> Resources { get; }
+        DbSet<ResourceRole> ResourceRoles { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

@@ -12,6 +12,6 @@ namespace StockManagment.Domain.Entities
         public string LastName { get; set; }
         public string Nationality { get; set; }
         public DateTime BirthDate { get; set; }
-        public string Gender { get; set; }
+        public string Gender { get; set; } 
     }
 }
