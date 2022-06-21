@@ -12,7 +12,7 @@ namespace Application.ResourceRoleLists.Commands.UpdateResourceRoleList
 {
     public class UpdateResourceRoleCommand : IRequest
     {
-        public List<ResourceRoleDto> List = new List<ResourceRoleDto>();
+        public List<ResourceRoleDto> List { get; set; } = new List<ResourceRoleDto>();
     }
 
     public class UpdateResourceRoleCommandHandler : IRequestHandler<UpdateResourceRoleCommand>
@@ -36,12 +36,13 @@ namespace Application.ResourceRoleLists.Commands.UpdateResourceRoleList
                 {
                     resourceRoles.Add(new ResourceRole
                     {
-                        RoleId = await _service.GetRoleId(item.RoleName),
-                        ResourceId = _context.Resources.Where(x => x.Name == item.ResourceName).FirstOrDefault().Id.ToString()
+                        RoleId = await _service?.GetRoleId(item.RoleName),
+                        ResourceId = _context.Resources.Where(x => x.Name == item.ResourceName)?.FirstOrDefault()?.Id.ToString()
                     });
                 }
 
-                await _context.ResourceRoles.AddRangeAsync(resourceRoles);
+                await _context.ResourceRoles?.AddRangeAsync(resourceRoles);
+                await _context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception)
             {

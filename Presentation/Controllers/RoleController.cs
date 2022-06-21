@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.ResourceRoleLists.Commands.UpdateResourceRoleList;
 
 namespace Presentation.Controllers
 {
@@ -30,9 +31,9 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete(string name)
+        public async Task<ActionResult> Delete(DeleteRoleCommand command)
         {
-            await Mediator.Send(new DeleteRoleCommand { Name = name });
+            await Mediator.Send(command);
 
             return NoContent();
         }
@@ -46,25 +47,21 @@ namespace Presentation.Controllers
             return NoContent();
         }
 
-        //[HttpPost]
-        //[Route("AddUserToRole")]
-        //public async Task<ActionResult> AddUserToRole(string user, string roleName)
-        //{
-        //    await Mediator.Send(new AddUserRoleCommand { User = user, RoleName = roleName });
+        [HttpPost]
+        [Route("AddUserToRole")]
+        public async Task<ActionResult> AddUserToRole(AddUserRoleCommand command)
+        {
+            await Mediator.Send(command);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
-        //[HttpPut]
-        //public async Task<ActionResult> Update(string name, UpdateRoleCommand command)
-        //{
-        //    if (name != command.Name)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    await Mediator.Send(command);
-        //    return NoContent();
-        //}
+        [HttpPut]
+        [Route("UpdateResourceRole")]
+        public async Task<ActionResult> UpdateResourceRole(UpdateResourceRoleCommand command)
+        {
+            await Mediator.Send(command);
+            return NoContent();
+        }
     }
 }

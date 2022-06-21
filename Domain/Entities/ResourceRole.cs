@@ -8,6 +8,7 @@ namespace Domain.Entities
 {
     public class ResourceRole
     {
+        public Guid Id { get; set; }
         public string ResourceId { get; set; }
         public string RoleId { get; set; }
     }

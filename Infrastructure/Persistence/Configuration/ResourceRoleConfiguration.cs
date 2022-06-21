@@ -13,8 +13,8 @@ namespace Infrastructure.Persistence.Configuration
     {
         public void Configure(EntityTypeBuilder<ResourceRole> builder)
         {
-            builder
-                .HasNoKey();
+            builder.Property(x => x.Id)
+               .HasDefaultValueSql("NEWID()");
 
             builder.Property(x => x.ResourceId)
                .IsRequired();
