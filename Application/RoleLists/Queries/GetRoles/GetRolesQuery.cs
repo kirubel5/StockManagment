@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Application.RoleLists.Queries.GetRoles
 {
-    public class GetRolesQuery : IRequest<RoleList>
+    public class GetRolesQuery : IRequest<RoleListDto>
     {
 
     }
 
-    public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, RoleList>
+    public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, RoleListDto>
     {
         private readonly IIdentityService _service;
         private readonly IMapper _mapper;
@@ -26,12 +26,12 @@ namespace Application.RoleLists.Queries.GetRoles
             _mapper = mapper;
         }
 
-        public Task<RoleList> Handle(GetRolesQuery request, CancellationToken cancellationToken)
+        public Task<RoleListDto> Handle(GetRolesQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 var a = _service.GetRoles();
-                RoleList list = new RoleList();
+                RoleListDto list = new RoleListDto();
 
                 foreach (var item in a)
                 {

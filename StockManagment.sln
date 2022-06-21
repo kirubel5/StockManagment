@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Presentation\Presentation.csproj", "{939859F6-1E7A-42C1-8815-FFBC15D71059}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcApp", "MvcApp\MvcApp.csproj", "{2305DBD2-3249-4E5A-A56C-A3AAEA9C1423}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{939859F6-1E7A-42C1-8815-FFBC15D71059}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{939859F6-1E7A-42C1-8815-FFBC15D71059}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{939859F6-1E7A-42C1-8815-FFBC15D71059}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2305DBD2-3249-4E5A-A56C-A3AAEA9C1423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2305DBD2-3249-4E5A-A56C-A3AAEA9C1423}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2305DBD2-3249-4E5A-A56C-A3AAEA9C1423}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2305DBD2-3249-4E5A-A56C-A3AAEA9C1423}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,7 +44,6 @@ Global
 		{2A586EE4-D449-4808-9B3C-CC23BA90AEB7} = {E7C854E6-896A-4AAB-B5E9-9F8FDBDB8038}
 		{6F037D8D-C797-488B-B5E4-CB9B54DF54E2} = {E7C854E6-896A-4AAB-B5E9-9F8FDBDB8038}
 		{939859F6-1E7A-42C1-8815-FFBC15D71059} = {E7C854E6-896A-4AAB-B5E9-9F8FDBDB8038}
-		{2305DBD2-3249-4E5A-A56C-A3AAEA9C1423} = {E7C854E6-896A-4AAB-B5E9-9F8FDBDB8038}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D13F43A4-3B2D-4C41-BEE9-B4A61319215C}

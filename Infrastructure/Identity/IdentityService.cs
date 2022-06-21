@@ -146,6 +146,28 @@ namespace Infrastructure.Identity
             return roles;
         }
 
+        public async Task<string> GetRoleId(string roleName)
+        {
+            try
+            {
+                var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                if (roleExists)
+                {
+                    var a = await _roleManager.FindByNameAsync(roleName);
+                    return a.Name;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task AddUserToRole(string id, string roleName)
         {
             try
@@ -189,7 +211,7 @@ namespace Infrastructure.Identity
                 throw;
             }
         }
-
+       
         private async Task<List<Claim>> GetClaimsAsync(ApplicationUser user)
         {
             var userClaims = new List<Claim>

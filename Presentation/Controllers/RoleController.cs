@@ -1,11 +1,10 @@
-﻿//using Application.RoleList.Queries.GetRolesQuery;
-//using Application.Roles.Commands.CreateCommand;
-//using Application.Roles.Commands.DeleteCommand;
-//using Application.Roles.Commands.UpdateCommand;
-//using Application.Roles.Queries.GetRole;
+﻿using Application.Roles.Commands.CreateRole;
+using Application.Roles.Commands.DeleteRole;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Presentation.Controllers;
+using Application.RoleLists.Queries.GetRoles;
+using Application.Roles.Commands.DeleteCommand;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,43 +14,37 @@ namespace Presentation.Controllers
 {
     [Authorize]
     public class RoleController : ApiControllerBase
-    {
-        //[HttpGet]
-        //public async Task<ActionResult<RoleDto>> Get([FromQuery] GetRoleQuery query)
-        //{
-        //    return await Mediator.Send(query);
-        //}
+    {  
+        [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<RoleListDto>> GetAll([FromQuery] GetRolesQuery query)
+        {
+            return await Mediator.Send(query);
+        }
 
-        //[HttpGet]
-        //[Route("GetAll")]
-        //public async Task<ActionResult<RoleList>> GetAll([FromQuery] GetRolesQuery query)
-        //{
-        //    return await Mediator.Send(query);
-        //}
+        [HttpPost]
+        public async Task<ActionResult> Create(CreateRoleCommand command)
+        {
+            await Mediator.Send(command);
+            return NoContent();
+        }
 
-        //[HttpPost]
-        //public async Task<ActionResult> Create(CreateRoleCommand command)
-        //{
-        //    await Mediator.Send(command);
-        //    return NoContent();
-        //}
+        [HttpDelete]
+        public async Task<ActionResult> Delete(string name)
+        {
+            await Mediator.Send(new DeleteRoleCommand { Name = name });
 
-        //[HttpDelete]
-        //public async Task<ActionResult> Delete(string name)
-        //{
-        //    await Mediator.Send(new DeleteRoleCommand { Name = name });
+            return NoContent();
+        }
 
-        //    return NoContent();
-        //}
+        [HttpDelete]
+        [Route("RemoveUserFromRole")]
+        public async Task<ActionResult> RemoveUserFromRole(string userId, string roleName)
+        {
+            await Mediator.Send(new RemoveUserRoleCommand { UserId = userId, RoleName = roleName });
 
-        //[HttpDelete]
-        //[Route("RemoveUserFromRole")]
-        //public async Task<ActionResult> RemoveUserFromRole(string user, string roleName)
-        //{
-        //    await Mediator.Send(new RemoveUserRoleCommand { User = user, RoleName = roleName });
-
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         //[HttpPost]
         //[Route("AddUserToRole")]

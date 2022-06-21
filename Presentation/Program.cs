@@ -15,12 +15,7 @@ using System.Threading.Tasks;
 namespace Presentation
 {
     public class Program
-    {
-        //public static void Main(string[] args)
-        //{
-        //    CreateHostBuilder(args).Build().Run();
-        //}
-
+    {    
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -42,7 +37,7 @@ namespace Presentation
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
                     await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
-                    //await ApplicationDbContextSeed.SeedSampleDataAsync(context);
+                    await ApplicationDbContextSeed.SeedResourcesAsync(context);
                 }
                 catch (Exception ex)
                 {
