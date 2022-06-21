@@ -41,7 +41,9 @@ namespace Application.ResourceRoleLists.Commands.UpdateResourceRoleList
                     });
                 }
 
-               // await _context.ResourceRoles?.
+                 _context.ResourceRoles?.RemoveRange(_context.ResourceRoles);
+                await _context.SaveChangesAsync(cancellationToken);
+
                 await _context.ResourceRoles?.AddRangeAsync(resourceRoles, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
             }
