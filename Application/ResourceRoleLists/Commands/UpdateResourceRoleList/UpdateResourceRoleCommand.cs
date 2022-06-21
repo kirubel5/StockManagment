@@ -41,7 +41,8 @@ namespace Application.ResourceRoleLists.Commands.UpdateResourceRoleList
                     });
                 }
 
-                await _context.ResourceRoles?.AddRangeAsync(resourceRoles);
+               // await _context.ResourceRoles?.
+                await _context.ResourceRoles?.AddRangeAsync(resourceRoles, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception)

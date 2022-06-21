@@ -168,6 +168,20 @@ namespace Infrastructure.Identity
             }
         }
 
+        public async Task<string> GetRoleNameById(string roleId)
+        {
+            try
+            {
+                var a = await _roleManager.FindByIdAsync(roleId);
+                return a.Name;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async Task AddUserToRole(string id, string roleName)
         {
             try

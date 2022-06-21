@@ -29,6 +29,7 @@ namespace Application.Common.Interfaces
 
         Task RemoveUserFromRole(string id, string roleName);
         Task<string> GetRoleId(string roleName);
+        Task<string> GetRoleNameById(string roleId);
         Task<AuthenticationResponse> GetJwtForUserAsync(string username, string password);
 
     }

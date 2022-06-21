@@ -10,10 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.ResourceRoleLists.Commands.UpdateResourceRoleList;
+using Application.ResourceRoleLists.Queries.GetResourceRoles;
 
 namespace Presentation.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class RoleController : ApiControllerBase
     {  
         [HttpGet]
@@ -62,6 +63,13 @@ namespace Presentation.Controllers
         {
             await Mediator.Send(command);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("GetResourceRole")]
+        public async Task<ActionResult<List<ResourceRoleDto>>> GetResourceRole([FromQuery] GetResourceRolesQuery query)
+        {
+            return await Mediator.Send(query);
         }
     }
 }

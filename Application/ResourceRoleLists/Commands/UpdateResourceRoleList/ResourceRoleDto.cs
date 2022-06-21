@@ -10,6 +10,5 @@ namespace Application.ResourceRoleLists.Commands.UpdateResourceRoleList
     {
         public string ResourceName { get; set; }
         public string RoleName { get; set; }
-
     }
 }
