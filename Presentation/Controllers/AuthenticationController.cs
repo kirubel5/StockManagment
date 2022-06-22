@@ -1,4 +1,5 @@
 ﻿using Application.Authentication.Commands.Login;
+using Application.Authentication.Commands.Register;
 using Application.Common.Models.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Presentation.Controllers;
@@ -13,6 +14,11 @@ namespace Presentation.Controllers
     {
         [HttpPost]
         public async Task<ActionResult<AuthenticationResponse>> LogUserInAsync(LoginCommand command)
+            => Ok(await Mediator.Send(command));
+
+        [HttpPost]
+        [Route("Register")]
+        public async Task<ActionResult<bool>> RegisterUser(RegisterCommand command)
             => Ok(await Mediator.Send(command));
     }
 }

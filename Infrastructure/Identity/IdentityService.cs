@@ -55,7 +55,10 @@ namespace Infrastructure.Identity
 
             var result = await _userManager.CreateAsync(user, password);
 
-            return (true, user.Id);
+            if (result.Succeeded)
+                return (true, user.Id);
+            else
+                return (false, user.Id);
         }
 
         public async Task<bool> IsInRoleAsync(string userId, string role)
