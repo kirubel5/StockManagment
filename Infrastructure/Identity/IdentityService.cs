@@ -124,7 +124,7 @@ namespace Infrastructure.Identity
 
                 if (roleExists)
                 {
-                    await _roleManager.DeleteAsync(new IdentityRole(roleName));
+                    await _roleManager.DeleteAsync(await _roleManager.FindByNameAsync(roleName));
                 }
             }
             catch (Exception)
