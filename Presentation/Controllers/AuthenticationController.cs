@@ -3,9 +3,6 @@ using Application.Authentication.Commands.Register;
 using Application.Common.Models.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StockManagment.Presentation.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Presentation.Controllers
@@ -20,5 +17,7 @@ namespace Presentation.Controllers
         [Route("Register")]
         public async Task<ActionResult<bool>> RegisterUser(RegisterCommand command)
             => Ok(await Mediator.Send(command));
+
+      
     }
 }

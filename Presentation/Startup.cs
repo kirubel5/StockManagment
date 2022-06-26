@@ -1,27 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
-using Infrastructure.Persistence;
 using Application;
 using Infrastructure;
 using Application.Common.Interfaces;
 using Presentation.Services;
-using Infrastructure.Identity;
-using System.Reflection;
-using System.IO;
+using Presentation.Filters;
 
 namespace Presentation
 {
@@ -54,7 +42,8 @@ namespace Presentation
                     .AllowAnyHeader();
                 });
             });
-            
+
+            services.AddScoped<AuthorizeActionFilter>();//for the filter
             services.AddControllersWithViews();
 
             services.AddRazorPages();

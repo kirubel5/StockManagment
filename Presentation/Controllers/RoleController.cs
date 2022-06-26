@@ -11,16 +11,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.ResourceRoleLists.Commands.UpdateResourceRoleList;
 using Application.ResourceRoleLists.Queries.GetResourceRoles;
+using System.Security.Claims;
+using Presentation.Filters;
 
 namespace Presentation.Controllers
 {
-   // [Authorize]
+    [Authorize]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class RoleController : ApiControllerBase
     {  
         [HttpGet]
         [Route("GetAll")]
         public async Task<ActionResult<RoleListDto>> GetAll([FromQuery] GetRolesQuery query)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return await Mediator.Send(query);
         }
 

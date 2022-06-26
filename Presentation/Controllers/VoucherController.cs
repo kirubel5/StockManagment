@@ -6,11 +6,13 @@ using StockManagment.Application.Vouchers.Queries.GetVoucher;
 using System.Threading.Tasks;
 using Application.VoucherLists.Queries.GetVouchersQuery;
 using Microsoft.AspNetCore.Authorization;
+using Presentation.Filters;
 
 namespace StockManagment.Presentation.Controllers
 {
 
     [Authorize]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class VoucherController : ApiControllerBase
     {
         [HttpGet]

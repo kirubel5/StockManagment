@@ -44,12 +44,9 @@ namespace Infrastructure
               .AddInMemoryIdentityResources(Config.GetIdentityResources())
               .AddInMemoryApiScopes(Config.GetApiScopes())
               .AddInMemoryClients(Config.GetClients());
-              //.AddIdentityResources(Config.GetIdentityResources())
+              //.AddIdentityResources(Config.GetIdentityResources());
               //.AddApiScopes(Config.GetApiScopes())
               //.AddClients(Config.GetClients());
-
-
-
 
             builder.AddDeveloperSigningCredential();
 
@@ -72,8 +69,6 @@ namespace Infrastructure
                     };
                 });
 
-
-
             // ////////////////////////////////////
             //************************************//
 
@@ -88,12 +83,12 @@ namespace Infrastructure
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 12;
-                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequiredUniqueChars = 0;
 
                 // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -122,15 +117,7 @@ namespace Infrastructure
                 });
 
             services.AddTransient<IIdentityService, IdentityService>();
-            /**************************************************************/
-            //services.AddIdentityServer()
-            // .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
-            //services.AddAuthentication();
-            // .AddIdentityServerJwt();
-           // services.AddIdentityServer();
-          //  services.AddAuthorization();
-
+           
             services.AddAuthorization(options =>
                 options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
 

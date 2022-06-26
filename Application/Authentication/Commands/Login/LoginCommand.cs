@@ -29,6 +29,7 @@ namespace Application.Authentication.Commands.Login
         public async Task<AuthenticationResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var result = await _identityService.GetJwtForUserAsync(request.Username, request.Password);
+            result.UserRole = await _identityService.GetUserRole(request.Username);
 
             if (result == null)
             {

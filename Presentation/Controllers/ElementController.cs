@@ -1,6 +1,7 @@
 ﻿using Application.ElementLists.Queries.GetElements;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Filters;
 using StockManagment.Application.Elements.Commands.CreateElement;
 using StockManagment.Application.Elements.Commands.DeleteElement;
 using StockManagment.Application.Elements.Commands.UpdateElement;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace StockManagment.Presentation.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class ElementController : ApiControllerBase
     {
         [HttpGet]

@@ -6,10 +6,12 @@ using StockManagment.Application.Consignees.Queries.GetConsignee;
 using System.Threading.Tasks;
 using Application.ConsigneeLists.Queries.GetConsignees;
 using Microsoft.AspNetCore.Authorization;
+using Presentation.Filters;
 
 namespace StockManagment.Presentation.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class ConsigneeController : ApiControllerBase
     {
         [HttpGet]
@@ -21,9 +23,7 @@ namespace StockManagment.Presentation.Controllers
         [HttpGet]
         [Route("GetAll")]
         public async Task<ActionResult<ConsigneeList>> Get([FromQuery] GetConsigneesQuery query)
-        {
-            return await Mediator.Send(query);
-        }
+            => await Mediator.Send(query);
 
         [HttpPost]
         public async Task<ActionResult> Create(CreateConsigneeCommand command)

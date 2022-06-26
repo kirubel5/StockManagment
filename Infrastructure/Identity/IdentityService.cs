@@ -149,6 +149,21 @@ namespace Infrastructure.Identity
             return roles;
         }
 
+        public async Task<string> GetUserRole(string userName)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(userName);
+                var userRole = await _userManager.GetRolesAsync(user);
+                return userRole.First();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
         public async Task<string> GetRoleId(string roleName)
         {
             try
@@ -181,6 +196,20 @@ namespace Infrastructure.Identity
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        public async Task<string> GetRoleIdByName(string roleName)
+        {
+            try
+            {
+                var a = await _roleManager.FindByNameAsync(roleName);
+                return a.Id;
+
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
@@ -278,8 +307,7 @@ namespace Infrastructure.Identity
                 : await GenerateJwtForUserAsync(userAuthentication);
         }
 
-        private async Task<ApplicationUser> GetAuthenticatedUserAsync(
-            string username, string password)
+        private async Task<ApplicationUser> GetAuthenticatedUserAsync(string username, string password)
         {
             var user = await _userManager.FindByNameAsync(username);
 

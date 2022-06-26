@@ -6,11 +6,13 @@ using StockManagment.Application.Persons.Queries.GetPerson;
 using System.Threading.Tasks;
 using Application.PersonLists.Queries.GetPersonsQuery;
 using Microsoft.AspNetCore.Authorization;
+using Presentation.Filters;
 
 namespace StockManagment.Presentation.Controllers
 {
 
     [Authorize]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class PersonController : ApiControllerBase
     {
         [HttpGet]

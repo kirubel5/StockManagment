@@ -25,11 +25,18 @@ namespace Application.Common.Interfaces
 
         List<string> GetRoles();
 
+        Task<string> GetUserRole(string userName);
+
+        Task<string> GetRoleIdByName(string roleName);
+
         Task AddUserToRole(string id, string roleName);
 
         Task RemoveUserFromRole(string id, string roleName);
+
         Task<string> GetRoleId(string roleName);
+
         Task<string> GetRoleNameById(string roleId);
+
         Task<AuthenticationResponse> GetJwtForUserAsync(string username, string password);
 
     }
