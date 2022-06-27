@@ -11,29 +11,41 @@ namespace StockManagment.Application.Persons.Queries.GetPerson
 {
     public class GetPersonQuery : IRequest<PersonDto>
     {
-        public string Code { get; set; }
+        public string UserName { get; set; }
     }
 
     public class GetPersonQueryHandler : IRequestHandler<GetPersonQuery, PersonDto>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IIdentityService _service;
         private readonly IMapper _mapper;
 
-        public GetPersonQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetPersonQueryHandler(IApplicationDbContext context, IMapper mapper, IIdentityService service)
         {
             _context = context;
+            _service = service;
             _mapper = mapper;
         }
 
-        public Task<PersonDto> Handle(GetPersonQuery request, CancellationToken cancellationToken)
+        public async Task<PersonDto> Handle(GetPersonQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var a = _context.Persons
-                    .Where(x => x.Code == request.Code)
-                    .ProjectTo<PersonDto>(_mapper.ConfigurationProvider).FirstOrDefault();
+                var id = await _service?.GetUserIdAsync(request.UserName);
 
-                return Task.FromResult(a);
+                if (id == null)
+                    return new PersonDto();
+
+                var a = _context.Persons
+                    .Where(x => x.Code == id)?
+                    .ProjectTo<PersonDto>(_mapper.ConfigurationProvider)?.FirstOrDefault();
+
+                if (a == null)
+                {
+                    return new PersonDto();
+                }
+
+                return a;
             }
             catch (ArgumentNullException)
             {

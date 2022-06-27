@@ -11,7 +11,7 @@ namespace StockManagment.Infrastructure.Persistence.Configurations
             builder.HasKey(t => t.Code);
 
             builder.Property(t => t.Code)
-                .HasMaxLength(26)
+                .HasMaxLength(40)
                 .IsRequired();
 
             builder.Property(t => t.Type)

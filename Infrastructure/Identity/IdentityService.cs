@@ -40,9 +40,21 @@ namespace Infrastructure.Identity
 
         public async Task<string> GetUserNameAsync(string userId)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+                return null;
 
             return user.UserName;
+        }
+
+        public async Task<string> GetUserIdAsync(string userName)
+        {
+            var user = await _userManager.Users?.FirstOrDefaultAsync(u => u.UserName == userName);
+
+            if (user == null)
+                return null;
+
+            return user.Id;
         }
 
         public async Task<(bool Result, string UserId)> CreateUserAsync(string userName, string password)
@@ -134,19 +146,23 @@ namespace Infrastructure.Identity
         }
 
         public List<string> GetRoles()
-        {           
-            List<string> roles = new List<string>();
-
+        {
+            List<string> roleNames = new();
             try
             {
-                roles = (List<string>)_roleManager.Roles;
+                var roles = _roleManager.Roles;
+
+                foreach (var item in roles)
+                {
+                    roleNames.Add(item.Name);
+                }
             }
             catch (Exception)
             {
                 throw;
             }
 
-            return roles;
+            return roleNames;
         }
 
         public async Task<string> GetUserRole(string userName)
@@ -206,7 +222,6 @@ namespace Infrastructure.Identity
             {
                 var a = await _roleManager.FindByNameAsync(roleName);
                 return a.Id;
-
             }
             catch (Exception)
             {

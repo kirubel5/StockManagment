@@ -11,6 +11,8 @@ namespace Application.Common.Interfaces
     {
         Task<string> GetUserNameAsync(string userId);
 
+        Task<string> GetUserIdAsync(string userName);
+
         Task<bool> IsInRoleAsync(string userId, string role);
 
         Task<bool> AuthorizeAsync(string userId, string policyName);

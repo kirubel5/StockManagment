@@ -4,23 +4,24 @@ using System.Threading.Tasks;
 using System.Threading;
 using Application.Common.Interfaces;
 using System;
+using System.Linq;
 
 namespace StockManagment.Application.Persons.Commands.CreatePerson
 {
 
     public class CreatePersonCommand : IRequest
     {
-        public string Code { get; set; }
-        public string Remark { get; set; }
+        public string Code { get; set; } = string.Empty;
+        public string Remark { get; set; } = string.Empty;
         public bool Active { get; set; }
-        public string Type { get; set; }
-        public string Title { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Nationality { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string MiddleName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Nationality { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
-        public string Gender { get; set; }
+        public string Gender { get; set; } = string.Empty;
     }
 
     public class CreatePersonCommanHandler : IRequestHandler<CreatePersonCommand>
@@ -49,9 +50,11 @@ namespace StockManagment.Application.Persons.Commands.CreatePerson
                 Gender = request.Gender
             };
 
-            _context.Persons.Add(entity);
-
-            await _context.SaveChangesAsync(cancellationToken);
+            if (_context.Persons.All(x => x.Code != request.Code))
+            {
+                _context.Persons.Add(entity);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
 
             return Unit.Value;
         }

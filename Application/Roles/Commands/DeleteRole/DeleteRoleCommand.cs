@@ -27,8 +27,11 @@ namespace Application.Roles.Commands.DeleteRole
 
         public async Task<Unit> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
         {
-            await _service.DeleteRole(request.Name);
-            await _context.SaveChangesAsync(cancellationToken);
+            if(request.Name != "Admin")
+            {
+                await _service.DeleteRole(request.Name);
+                await _context.SaveChangesAsync(cancellationToken);
+            }
 
             return Unit.Value;
         }

@@ -41,10 +41,16 @@ namespace Application.ResourceRoleLists.Commands.UpdateResourceRoleList
                     });
                 }
 
+                resourceRoles.Add(new ResourceRole
+                {
+                    RoleId = await _service?.GetRoleId("Admin"),
+                    ResourceId = _context.Resources.Where(x => x.Name == "Role")?.FirstOrDefault()?.Id.ToString()
+                });
+
                  _context.ResourceRoles?.RemoveRange(_context.ResourceRoles);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                await _context.ResourceRoles?.AddRangeAsync(resourceRoles, cancellationToken);
+                await _context.ResourceRoles.AddRangeAsync(resourceRoles, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception)

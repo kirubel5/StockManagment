@@ -11,14 +11,23 @@ namespace Infrastructure.Persistence
 {
     public static class ApplicationDbContextSeed
     {
-        public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+        public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             var administratorRole = new IdentityRole("Admin");
 
             if (roleManager.Roles.All(r => r.Name != administratorRole.Name))
             {
                 await roleManager.CreateAsync(administratorRole);
+
+                ResourceRole resourceRole = new()
+                {
+                    RoleId = await roleManager.GetRoleIdAsync(administratorRole),
+                    ResourceId = context.Resources.Where(x => x.Name == "Role")?.FirstOrDefault()?.Id.ToString()
+                };
+
+                await context.ResourceRoles.AddAsync(resourceRole);
+                await context.SaveChangesAsync();
             }
 
             var cashierRole = new IdentityRole("Cashier");
@@ -43,7 +52,7 @@ namespace Infrastructure.Persistence
                 await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }            
         }
-
+         
         public static async Task SeedResourcesAsync(ApplicationDbContext context)
         {
             var consigneeResource = new Resource { Name = "Consignee" };

@@ -26,15 +26,13 @@ namespace Infrastructure
             else
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-
             // //////////////////////////////////////
-            
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
@@ -117,7 +115,7 @@ namespace Infrastructure
                 });
 
             services.AddTransient<IIdentityService, IdentityService>();
-           
+
             services.AddAuthorization(options =>
                 options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
 

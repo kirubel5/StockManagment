@@ -17,11 +17,11 @@ using Presentation.Filters;
 namespace Presentation.Controllers
 {
     [Authorize]
-    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public class RoleController : ApiControllerBase
     {  
         [HttpGet]
         [Route("GetAll")]
+        [ServiceFilter(typeof(AuthorizeActionFilter))]
         public async Task<ActionResult<RoleListDto>> GetAll([FromQuery] GetRolesQuery query)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -29,6 +29,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(AuthorizeActionFilter))]
         public async Task<ActionResult> Create(CreateRoleCommand command)
         {
             await Mediator.Send(command);
@@ -36,6 +37,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete]
+        [ServiceFilter(typeof(AuthorizeActionFilter))]
         public async Task<ActionResult> Delete(DeleteRoleCommand command)
         {
             await Mediator.Send(command);
@@ -45,6 +47,7 @@ namespace Presentation.Controllers
 
         [HttpDelete]
         [Route("RemoveUserFromRole")]
+        [ServiceFilter(typeof(AuthorizeActionFilter))]
         public async Task<ActionResult> RemoveUserFromRole(string userId, string roleName)
         {
             await Mediator.Send(new RemoveUserRoleCommand { UserId = userId, RoleName = roleName });
@@ -54,6 +57,7 @@ namespace Presentation.Controllers
 
         [HttpPost]
         [Route("AddUserToRole")]
+        [ServiceFilter(typeof(AuthorizeActionFilter))]
         public async Task<ActionResult> AddUserToRole(AddUserRoleCommand command)
         {
             await Mediator.Send(command);
@@ -63,6 +67,7 @@ namespace Presentation.Controllers
 
         [HttpPut]
         [Route("UpdateResourceRole")]
+        [ServiceFilter(typeof(AuthorizeActionFilter))]
         public async Task<ActionResult> UpdateResourceRole(UpdateResourceRoleCommand command)
         {
             await Mediator.Send(command);
