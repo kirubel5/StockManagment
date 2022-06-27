@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Application.PersonLists.Queries.GetPersonsQuery;
 using Microsoft.AspNetCore.Authorization;
 using Presentation.Filters;
+using System.Collections.Generic;
 
 namespace StockManagment.Presentation.Controllers
 {
@@ -26,6 +27,13 @@ namespace StockManagment.Presentation.Controllers
         public async Task<ActionResult<PersonList>> Get([FromQuery] GetPersonsQuery query)
         {
             return await Mediator.Send(query);
+        }
+
+        [HttpGet]
+        [Route("GetAllUserNames")]
+        public async Task<ActionResult<List<string>>> Get([FromQuery] GetUserNamesQuery query)
+        {
+            return  await Mediator.Send(query);
         }
 
         [HttpPost]

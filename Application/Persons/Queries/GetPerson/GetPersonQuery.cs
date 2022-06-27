@@ -41,9 +41,7 @@ namespace StockManagment.Application.Persons.Queries.GetPerson
                     .ProjectTo<PersonDto>(_mapper.ConfigurationProvider)?.FirstOrDefault();
 
                 if (a == null)
-                {
-                    return new PersonDto();
-                }
+                    return new PersonDto { Code = id };             
 
                 return a;
             }

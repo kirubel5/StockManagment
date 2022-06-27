@@ -13,6 +13,8 @@ namespace Application.Common.Interfaces
 
         Task<string> GetUserIdAsync(string userName);
 
+        List<string> GetAllUserNames();
+
         Task<bool> IsInRoleAsync(string userId, string role);
 
         Task<bool> AuthorizeAsync(string userId, string policyName);

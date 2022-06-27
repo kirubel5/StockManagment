@@ -57,6 +57,22 @@ namespace Infrastructure.Identity
             return user.Id;
         }
 
+        public List<string> GetAllUserNames()
+        {
+            List<string> userNames = new();
+            var users = _userManager.Users;
+
+            if (users != null && users.Count() > 0)
+            {
+                foreach (var item in users)
+                {
+                    userNames.Add(item.UserName);
+                }
+            }
+
+            return userNames;
+        }
+
         public async Task<(bool Result, string UserId)> CreateUserAsync(string userName, string password)
         {
             var user = new ApplicationUser
